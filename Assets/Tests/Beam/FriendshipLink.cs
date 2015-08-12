@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(LineRenderer))]
 public class FriendshipLink : MonoBehaviour
 {
+    public Color HighlightedColor = new Color(1f, 1f, 1f, 0.5f);
+
     [SerializeField]
     private Transform StartPoint;
 
@@ -21,13 +24,19 @@ public class FriendshipLink : MonoBehaviour
 
     private float LIFETIME_RATIO = 0.025f;
 
+    private Renderer _renderer;
+    private Color _defaultColor;
+
     void Awake()
     {
+        // Set the importance (weight) of the link here
         BeamLine.SetWidth(0.2f, 0.2f);
 
-        Renderer lineRenderer = BeamLine.GetComponent<Renderer>();
+        _renderer = BeamLine.GetComponent<Renderer>();
 
-        lineRenderer.material = Instantiate(lineRenderer.material);
+        _renderer.material = Instantiate(_renderer.material);
+
+        _defaultColor = _renderer.material.GetColor("_TintColor");
 
         //Activate(false);
     }
@@ -68,5 +77,12 @@ public class FriendshipLink : MonoBehaviour
     {
         StartObject = origin.transform;
         EndObject = destination.transform;
+    }
+
+    public void Highlight(bool state, float weight)
+    {
+        // For now, the weight does nothing but it should eventually influence the intensity and size of the link
+
+        _renderer.material.SetColor("_TintColor", state ? HighlightedColor : _defaultColor);
     }
 }
