@@ -3,74 +3,62 @@ using System.Collections;
 
 public class Sphere : MonoBehaviour
 {
+    public FriendshipLink Link;
     public GameObject SpherePrototype;
     public int PointsAmount = 50;
     public float SphereRadius = 1f;
 
+    private GameObject[] nodes;
+
     void Awake()
     {
-        // First test (Orion Elenzil)
-        /*
-        for (int i = 0; i < PointsAmount; i++)
-        {
-            float theta = (360f / PointsAmount) * i;
-            float phi = (Mathf.PI / 2 / PointsAmount) * i;
+        InstantiateNodes();
+        AssignLinks();
+    }
 
-            float x = Mathf.Cos(Mathf.Sqrt(phi)) * Mathf.Cos(theta);
-            float y = Mathf.Cos(Mathf.Sqrt(phi)) * Mathf.Sin(theta);
-            float z = (UnityEngine.Random.value < 0.5f ? -1 : 1) * Mathf.Sin(Mathf.Sqrt(phi));
-            Debug.Log(UnityEngine.Random.value);
-            Instantiate(SpherePrototype, new Vector3(x, y, z), Quaternion.identity);
-        }*/
+    private void InstantiateNodes()
+    {
+        /* Sphere uniform distribution using the spiral method with the golden angle
+         * ~2.39996323 rad, the golden angle (the most irrational angle)
+         * is used here to make sure that the sin and cos functions
+         * dont end up drawing clusters of points and the spirals are way
+         * less visible.
+         */
+        nodes = new GameObject[PointsAmount];
 
-        // Second test (default unit sphere random distribution)
-        /*
-        for (int i = 0; i < PointsAmount; i++)
-        {
-            float u = UnityEngine.Random.Range(-1f, 1f);
-            float a = UnityEngine.Random.Range(0f, 2 * Mathf.PI);
-            
-            float x = Mathf.Sqrt(1 - u * u) * Mathf.Cos(a);
-            float y = Mathf.Sqrt(1 - u * u) * Mathf.Sin(a);
-            float z = u;
+        float goldenAngle = Mathf.PI * (3 - Mathf.Sqrt(5));
 
-            Instantiate(SpherePrototype, new Vector3(x, y, z), Quaternion.identity);
-        }*/
-
-        // Third test (sphere semi-uniform distribution)
-        /*
-        for (int i = 0; i < PointsAmount; i++)
-        {
-            float u = (SphereRadius * 2 / PointsAmount) * i - SphereRadius;
-            float a = UnityEngine.Random.Range(0f, 2 * Mathf.PI); // ((2 * Mathf.PI) / PointsAmount) * i;
-
-            Debug.Log(a);
-
-            float x = Mathf.Sqrt(SphereRadius * SphereRadius - u * u) * Mathf.Cos(a);
-            float y = Mathf.Sqrt(SphereRadius * SphereRadius - u * u) * Mathf.Sin(a);
-            float z = u;
-
-            Instantiate(SpherePrototype, new Vector3(x, y, z), Quaternion.identity);
-        }*/
-
-        // Fourth test (sphere uniform distribution using the spiral method)
-        float dlong = Mathf.PI * (3 - Mathf.Sqrt(5)); //~2.39996323
-
-        float dz = (2f/PointsAmount) * SphereRadius;
+        float zDistance = (2f / PointsAmount) * SphereRadius;
         float longitude = 0f;
-        float z = SphereRadius - dz/2;
+        float z = SphereRadius;
 
         for (int i = 0; i < PointsAmount; i++)
-		{
+        {
             float r = Mathf.Sqrt(SphereRadius * SphereRadius - z * z);
 
-            float x = Mathf.Cos(longitude) * r;
-            float y = Mathf.Sin(longitude) * r;
+            float x = Mathf.Sin(longitude) * r;
+            float y = Mathf.Cos(longitude) * r;
 
-            Instantiate(SpherePrototype, new Vector3(x, y, z), Quaternion.identity);
+            GameObject simon = Instantiate(SpherePrototype, new Vector3(x, y, z), Quaternion.identity) as GameObject;
 
-            z -= dz;
-            longitude += dlong;
-		}
+            simon.transform.parent = this.transform;
+
+            nodes[i] = simon;
+
+            z -= zDistance;
+            longitude += goldenAngle;
+        }
+    }
+
+    private void AssignLinks()
+    {
+        for (int i = 0; i < nodes.Length / 4; i++)
+        {
+            FriendshipLink link = Instantiate(Link) as FriendshipLink;
+
+            int destinationIndex = Random.Range(nodes.Length / 2, nodes.Length - 1);
+
+            link.AttachToObjects(nodes[i], nodes[destinationIndex]);
+        }
     }
 }
