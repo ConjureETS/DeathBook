@@ -304,6 +304,7 @@ GameObject:
   - 33: {fileID: 736567787}
   - 23: {fileID: 736567785}
   - 114: {fileID: 736567789}
+  - 54: {fileID: 736567786}
   m_Layer: 0
   m_Name: Center
   m_TagString: Untagged
@@ -335,6 +336,21 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!54 &736567786
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 736567784}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .800000012
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!33 &736567787
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -370,6 +386,7 @@ MonoBehaviour:
   PointsAmount: 400
   SphereRadius: 7
   rotationSpeed: .699999988
+  torqueForce: 50
 --- !u!1 &1057734534
 GameObject:
   m_ObjectHideFlags: 0
