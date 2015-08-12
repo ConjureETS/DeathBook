@@ -1,16 +1,19 @@
 ﻿using System.Collections.Generic;
 
-public class PostGenerator
+namespace DeathBook.Model
 {
-	public Status generateStatus(/*put stuff here*/)
+	public class PostGenerator
 	{
-		//and here...
-		return null;
-	}
+		public Status generateStatus(/*put stuff here*/)
+		{
+			//and here...
+			return null;
+		}
 
-	public Headline generateHeadline(/*put stuff here*/)
-	{
-		//and here...
-		return null;
+		public Headline generateHeadline(/*put stuff here*/)
+		{
+			//and here...
+			return null;
+		}
 	}
 }

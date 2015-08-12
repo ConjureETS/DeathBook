@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 
-public class Status : Post
+namespace DeathBook.Model
 {
-	//TODO
+	public class Status : Post
+	{
+		//TODO
+	}
 }

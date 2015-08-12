@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 
-public class LevelGenerator
+namespace DeathBook.Model
 {
-	public Level generateLevel(/*put stuff here*/)
+	public class LevelGenerator
 	{
-		//and here...
-		return null;
+		public Level generateLevel(/*put stuff here*/)
+		{
+			//and here...
+			return null;
+		}
 	}
 }
