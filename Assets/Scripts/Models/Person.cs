@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace DeathBook.Model
 {
 	public class Person
 	{
 		private string name;
-		private Friendship[] friendList;
-		private int friendCount; //lazy
+		private List<Friendship> friendList = new List<Friendship>();
+		public Vector3 initialPosition;
 		private int timeBetweenPosts; // f = 1/T;
 		private int connectionTime;
 		private int disconnectionTime;
@@ -19,6 +19,10 @@ namespace DeathBook.Model
 
 		//private Node node;
 
+		public Person(float x, float y, float z)
+		{
+			initialPosition = new Vector3(x, y, z);
+		}
 
 		private bool isConnected(int time)
 		{

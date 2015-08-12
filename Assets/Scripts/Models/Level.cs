@@ -1,12 +1,16 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace DeathBook.Model
 {
 	public class Level
 	{
-		private int points;
-		private Person[] peeps;
+		private int score;
+
+		private List<Person> peeps;
+		private List<Friendship> friendships;
+
+
 		//private Generator gen;
 		private int gameTime;
 		private int globalAwareness;
