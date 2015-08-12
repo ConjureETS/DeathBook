@@ -37,7 +37,8 @@ public class Sphere : MonoBehaviour
             Instantiate(SpherePrototype, new Vector3(x, y, z), Quaternion.identity);
         }*/
 
-        // Third test (unit sphere semi-uniform distribution)
+        // Third test (sphere semi-uniform distribution)
+        /*
         for (int i = 0; i < PointsAmount; i++)
         {
             float u = (SphereRadius * 2 / PointsAmount) * i - SphereRadius;
@@ -50,6 +51,26 @@ public class Sphere : MonoBehaviour
             float z = u;
 
             Instantiate(SpherePrototype, new Vector3(x, y, z), Quaternion.identity);
-        }
+        }*/
+
+        // Fourth test (sphere uniform distribution using the spiral method)
+        float dlong = Mathf.PI * (3 - Mathf.Sqrt(5)); //~2.39996323
+
+        float dz = (2f/PointsAmount) * SphereRadius;
+        float longitude = 0f;
+        float z = SphereRadius - dz/2;
+
+        for (int i = 0; i < PointsAmount; i++)
+		{
+            float r = Mathf.Sqrt(SphereRadius * SphereRadius - z * z);
+
+            float x = Mathf.Cos(longitude) * r;
+            float y = Mathf.Sin(longitude) * r;
+
+            Instantiate(SpherePrototype, new Vector3(x, y, z), Quaternion.identity);
+
+            z -= dz;
+            longitude += dlong;
+		}
     }
 }
