@@ -145,7 +145,7 @@ Camera:
     height: 1
   near clip plane: .300000012
   far clip plane: 1000
-  field of view: 49
+  field of view: 59
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -165,8 +165,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 61719360}
-  m_LocalRotation: {x: -.259112954, y: .110958092, z: -.0299803261, w: -.958983839}
-  m_LocalPosition: {x: 2.95000005, y: 9.18000031, z: -15.3199997}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -15.1300001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -180,7 +180,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 736567788}
   - 33: {fileID: 736567787}
-  - 135: {fileID: 736567786}
   - 23: {fileID: 736567785}
   - 114: {fileID: 736567789}
   m_Layer: 0
@@ -196,7 +195,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 736567784}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
@@ -214,18 +213,6 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!135 &736567786
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 736567784}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: .5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &736567787
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -257,7 +244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Link: {fileID: 11495142, guid: fab430cecad80ad4391987a06b550cb7, type: 2}
-  SpherePrototype: {fileID: 140654, guid: 646dd6566f9e1374caa3af8ad37c43d3, type: 2}
+  Person: {fileID: 11406500, guid: 646dd6566f9e1374caa3af8ad37c43d3, type: 2}
   PointsAmount: 400
   SphereRadius: 7
   rotationSpeed: .699999988

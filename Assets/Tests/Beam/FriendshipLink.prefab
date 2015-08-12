@@ -154,6 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c495d00d780bd3d49866ec60f5efbf66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HighlightedColor: {r: 1, g: 1, b: 1, a: .501960814}
   StartPoint: {fileID: 495136}
   EndPoint: {fileID: 495134}
   BeamLine: {fileID: 12095142}
