@@ -9,18 +9,58 @@ public class Sphere : MonoBehaviour
     public float SphereRadius = 1f;
     public float rotationSpeed = 0.7f;
 
+    public float torqueForce = 50f;
+    private bool dragging = false;
+    private Vector3 delta = new Vector3();
+    private Rigidbody rb;
+
     private GameObject[] nodes;
 
     void Awake()
     {
         InstantiateNodes();
         AssignLinks();
+        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
         transform.Rotate(Vector3.one * Time.deltaTime * rotationSpeed);
+        //when right btn clicked, call the chnge rotation
+        if (Input.GetMouseButtonDown(1))
+        {
+            dragging = true;
+        }
+        else if (Input.GetMouseButtonUp(1))
+        {
+            dragging = false;
+            delta = new Vector3();
+        }
+        if (dragging) {
+            MoveSphere();
+        }
+
     }
+
+    void MoveSphere()
+    {
+        float deltaX = Input.GetAxis("Mouse X");
+        float deltaY = Input.GetAxis("Mouse Y");
+        if (deltaX == 0 && deltaY == 0)
+        {
+            delta = new Vector3();
+            rb.angularVelocity *= 0.8f;
+        }
+        delta += new Vector3(deltaX, deltaY, 0);
+        //rigidbody.AddTorque();
+        rb.AddTorque(Vector3.down * delta.x * torqueForce * Time.deltaTime, ForceMode.Impulse);
+        rb.AddTorque(Vector3.right * delta.y * torqueForce * Time.deltaTime, ForceMode.Impulse);
+        Debug.Log(delta.x + ", " + delta.y);
+
+        
+    }
+
+    
 
     private void InstantiateNodes()
     {
