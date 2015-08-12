@@ -7,6 +7,7 @@ public class Sphere : MonoBehaviour
     public GameObject SpherePrototype;
     public int PointsAmount = 50;
     public float SphereRadius = 1f;
+    public float rotationSpeed = 0.7f;
 
     private GameObject[] nodes;
 
@@ -14,6 +15,11 @@ public class Sphere : MonoBehaviour
     {
         InstantiateNodes();
         AssignLinks();
+    }
+
+    void Update()
+    {
+        transform.Rotate(Vector3.one * Time.deltaTime * rotationSpeed);
     }
 
     private void InstantiateNodes()

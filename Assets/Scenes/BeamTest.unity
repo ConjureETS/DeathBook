@@ -260,6 +260,7 @@ MonoBehaviour:
   SpherePrototype: {fileID: 140654, guid: 646dd6566f9e1374caa3af8ad37c43d3, type: 2}
   PointsAmount: 400
   SphereRadius: 7
+  rotationSpeed: .699999988
 --- !u!1 &1126063559
 GameObject:
   m_ObjectHideFlags: 0
