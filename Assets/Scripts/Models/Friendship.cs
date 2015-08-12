@@ -5,8 +5,9 @@ using System.Text;
 
 namespace DeathBook.Model
 {
-	public class Headline : Post
+	class Friendship
 	{
-		private Person author;
+		private Person friend1, friend2;
+		private int importance; //on a scale from 1 to 100
 	}
 }

@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 
-public class Post
+namespace DeathBook.Model
 {
-	private string text;
-	private string title;
-	private string date;
+	public class Post
+	{
+		private string text;
+		private string title;
+		private string date;
+	}
 }
