@@ -197,7 +197,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 736567784}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
@@ -259,9 +259,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LinkObj: {fileID: 11495142, guid: fab430cecad80ad4391987a06b550cb7, type: 2}
   PersonObj: {fileID: 11406500, guid: 646dd6566f9e1374caa3af8ad37c43d3, type: 2}
-  NumPeople: 100
+  NumPeople: 200
   AvgNumFriends: 10
-  FriendshipLikeliness: .300000012
+  FriendshipLikeliness: 1
   SphereRadius: 7
   rotationSpeed: .699999988
   torqueForce: .100000001
@@ -311,7 +311,7 @@ Light:
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_Strength: 1
     m_Bias: .0500000007
