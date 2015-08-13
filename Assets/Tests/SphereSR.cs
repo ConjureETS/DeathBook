@@ -9,6 +9,7 @@ public class SphereSR : MonoBehaviour
     public PersonTest PersonObj;
     public int NumPeople = 50;
 	public int AvgNumFriends = 20;
+	public float FriendshipLikeliness = 0.4f;
     public float SphereRadius = 1f;
     public float rotationSpeed = 0.7f;
 
@@ -24,7 +25,7 @@ public class SphereSR : MonoBehaviour
     void Awake()
     {
 		LevelGenerator lGen = new LevelGenerator();
-		Level lvl = lGen.GenerateLevel(NumPeople, AvgNumFriends, SphereRadius);
+		Level lvl = lGen.GenerateLevel(NumPeople, AvgNumFriends, FriendshipLikeliness, SphereRadius);
 
         InstantiateNodes(lvl);
         AssignLinks(lvl);

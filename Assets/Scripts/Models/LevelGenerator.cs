@@ -7,12 +7,14 @@ namespace DeathBook.Model
 	{
 		private int numPeople;
 		private int avgConnections;
+		private float probability;
 		private float radius;
 
-		public Level GenerateLevel(int numPeople, int avgFriends, float radius)
+		public Level GenerateLevel(int numPeople, int avgFriends, float probability, float radius)
 		{
 			this.numPeople = numPeople;
 			this.avgConnections = avgFriends;
+			this.probability = probability;
 			this.radius = radius;
 
 			List<Person> people = CreatePeople();
@@ -55,7 +57,7 @@ namespace DeathBook.Model
 
 		private List<Friendship> CreateFriendships(List<Person> people)
 		{
-			Debug.Log("Creating friendships");
+			Debug.Log("Creating friendships" + probability);
 
 			List<Friendship> friendships = new List<Friendship>();
 			Person p1, p2;
@@ -67,7 +69,6 @@ namespace DeathBook.Model
 
 			for (int i = 0; i < totalCount; i++)
 			{
-				Debug.Log("Person " + (i+1));
 				p1 = people[i];
 				missing = avgConnections - p1.numFriends; // TODO Add randomness
 
@@ -86,10 +87,13 @@ namespace DeathBook.Model
 				while (list.Count > 0 && missing > 0)
 				{
 					DistanceNode smallest = list.First.Value;
+
+					//Lerp between probability and 1, depending on how many are left and how many are missing
+
+					float prob = Mathf.Lerp(probability, 1, missing / list.Count);
 					foreach (DistanceNode node in list)
 					{
-						if (node.dist < smallest.dist)
-							//TODO Add probabilities
+						if (node.dist < smallest.dist && Random.value < prob)
 							smallest = node;
 					}
 					//TODO Code/use a heap instead
