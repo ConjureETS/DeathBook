@@ -79,7 +79,7 @@ namespace DeathBook.Model
 				missing = avgConnections - p1.numFriends; // TODO Add randomness
 
 				if (missing <= 0)
-					break;
+					continue;
 
 				list.Clear();
 
@@ -99,13 +99,16 @@ namespace DeathBook.Model
 					float prob = Mathf.Lerp(probability, 1, missing / list.Count);
 					foreach (DistanceNode node in list)
 					{
-						if (node.dist < smallest.dist && Random.value < prob)
+						if (node.dist < smallest.dist)
 							smallest = node;
 					}
 					//TODO Code/use a heap instead
 
-					friendships.Add(CreateFriendship(p1, smallest.p));
-					missing--;
+					if (Random.value < prob)
+					{
+						friendships.Add(CreateFriendship(p1, smallest.p));
+						missing--;
+					}
 					list.Remove(smallest);
 				}
 			}
