@@ -27,6 +27,12 @@ namespace DeathBook.Model
 		{
 			List<Person> people = new List<Person>(numPeople);
 
+            /* Sphere uniform distribution using the spiral method with the golden angle
+            * ~2.39996323 rad, the golden angle (the most irrational angle)
+            * is used here to make sure that the sin and cos functions
+            * dont end up drawing clusters of points and the spirals are way
+            * less visible.
+            */
 			float dlong = Mathf.PI * (3 - Mathf.Sqrt(5)); //~2.39996323
 
 			float dz = (2f / numPeople) * radius;
