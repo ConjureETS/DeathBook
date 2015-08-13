@@ -258,7 +258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LinkObj: {fileID: 11495142, guid: fab430cecad80ad4391987a06b550cb7, type: 2}
-  PersonObj: {fileID: 11406500, guid: 646dd6566f9e1374caa3af8ad37c43d3, type: 2}
+  PersonObj: {fileID: 11406500, guid: d4b0e683ea5ec974987ea1f6741b333c, type: 2}
   NumPeople: 100
   AvgNumFriends: 10
   FriendshipLikeliness: .300000012
@@ -311,7 +311,7 @@ Light:
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_Strength: 1
     m_Bias: .0500000007

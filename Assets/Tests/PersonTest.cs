@@ -5,6 +5,8 @@ using System.Collections.Generic;
 [RequireComponent(typeof(Collider))]
 public class PersonTest : MonoBehaviour
 {
+    public PersonDetailsPanel DetailsPanel;
+
     // Temporary, for test
     private List<FriendshipLink> _links;
     private bool _highlighted = false;
@@ -21,7 +23,6 @@ public class PersonTest : MonoBehaviour
 
     void OnMouseOver()
     {
-        Debug.Log("abc");
         if (!_highlighted)
         {
             _highlighted = true;
