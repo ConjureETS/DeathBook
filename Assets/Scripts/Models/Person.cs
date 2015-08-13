@@ -5,9 +5,11 @@ namespace DeathBook.Model
 {
 	public class Person
 	{
+		public int id;
 		private string name;
 		private List<Friendship> friendList = new List<Friendship>();
 		public Vector3 initialPosition;
+		public int numFriends;
 		private int timeBetweenPosts; // f = 1/T;
 		private int connectionTime;
 		private int disconnectionTime;
@@ -19,9 +21,16 @@ namespace DeathBook.Model
 
 		//private Node node;
 
-		public Person(float x, float y, float z)
+		public Person(int id, float x, float y, float z)
 		{
+			this.id = id;
 			initialPosition = new Vector3(x, y, z);
+		}
+
+		public void AddFriendship(Friendship f)
+		{
+			friendList.Add(f);
+			numFriends++;
 		}
 
 		private bool isConnected(int time)
