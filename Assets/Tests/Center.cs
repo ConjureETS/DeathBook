@@ -4,6 +4,11 @@ using System.Collections.Generic;
 
 public class Center : MonoBehaviour
 {
+
+    //public float fov = Camera.main.fieldOfView;
+    public Vector3 nextPosition;
+    public float moveSpeed = 0;
+
     public FriendshipLink Link;
     public PersonTest Person;
     public int PointsAmount = 50;
@@ -50,7 +55,20 @@ public class Center : MonoBehaviour
             dragging = false;
             delta = new Vector3();
         }
-        
+
+        //camera zoom
+        if (Input.GetAxis("Mouse ScrollWheel") != 0)
+        {
+            Debug.Log("Pressed middle click.");
+            //Camera.main.transform.position.z += (moveSpeed * Time.deltaTime);
+            //transform.position = Vector3.Lerp(transform.position, nextPosition, Time.deltaTime * moveSpeed);
+            //Camera.main.fieldOfView += Input.GetAxis("Mouse ScrollWheel") * 10f;
+            //Camera.main.transform
+        }
+    }
+
+    void FixedUpdate()
+    {
         if (dragging)
         {
             MoveSphere();
@@ -67,9 +85,8 @@ public class Center : MonoBehaviour
             rb.angularVelocity *= 0.8f;
         }
         delta += new Vector3(deltaX, deltaY, 0);
-        //rigidbody.AddTorque();
-        rb.AddTorque(Vector3.down * delta.x * torqueForce * Time.deltaTime, ForceMode.Impulse);
-        rb.AddTorque(Vector3.right * delta.y * torqueForce * Time.deltaTime, ForceMode.Impulse);
+        rb.AddTorque(Vector3.down * delta.x * torqueForce * Time.fixedDeltaTime, ForceMode.Impulse);
+        rb.AddTorque(Vector3.right * delta.y * torqueForce * Time.fixedDeltaTime, ForceMode.Impulse);
         Debug.Log(delta.x + ", " + delta.y);
 
         
