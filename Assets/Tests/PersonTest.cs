@@ -21,7 +21,6 @@ public class PersonTest : MonoBehaviour
 
     void OnMouseOver()
     {
-        Debug.Log("abc");
         if (!_highlighted)
         {
             _highlighted = true;

@@ -83,12 +83,6 @@ public class SphereSR : MonoBehaviour
 
     private void InstantiateNodes(Level lvl)
     {
-        /* Sphere uniform distribution using the spiral method with the golden angle
-         * ~2.39996323 rad, the golden angle (the most irrational angle)
-         * is used here to make sure that the sin and cos functions
-         * dont end up drawing clusters of points and the spirals are way
-         * less visible.
-         */
         peopleNodes = new PersonTest[lvl.people.Count];
 
 		int ctr = 0;
