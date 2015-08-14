@@ -10,6 +10,9 @@ namespace DeathBook.Model
 		private float probability;
 		private float radius;
 
+		private const float minConnTime = 3;
+		private const float maxConnTime = 20;
+
 		public Level GenerateLevel(int numPeople, int avgFriends, float probability, float radius)
 		{
 			this.numPeople = numPeople;
@@ -48,7 +51,8 @@ namespace DeathBook.Model
 				x = Mathf.Cos(longitude) * r;
 				y = Mathf.Sin(longitude) * r;
 
-				p = new Person(i, x, y, z);
+				p = CreatePerson(i, x, y, z);
+
 				people.Add(p);
 
 				z -= dz;
@@ -122,6 +126,17 @@ namespace DeathBook.Model
 			p1.AddFriendship(f);
 			p2.AddFriendship(f);
 			return f;
+		}
+
+		private Person CreatePerson(int id, float x, float y, float z)
+		{
+			Vector3 pos = new Vector3(x, y, z);
+			//Vector2 times = 
+
+			//Person p = new Person(id, pos,);
+			Person p = new Person(id);
+
+			return p;
 		}
 	}
 

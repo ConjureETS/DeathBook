@@ -9,22 +9,21 @@ namespace DeathBook.Model
 		private string name;
 		private List<Friendship> friendList = new List<Friendship>();
 		public Vector3 initialPosition;
+		public float connectionTime;
+		public float disconnectionTime;
+		public float awarenessLevel;
+		public bool alive;
+		public bool connected;
+
 		public int numFriends;
-		private int timeBetweenPosts; // f = 1/T;
-		private int connectionTime;
-		private int disconnectionTime;
-		private int awarenessLevel;
-		private bool alive;
+		public int timeBetweenPosts; // f = 1/T;
+		public float importance; // Size of the quad
 
 		private int happiness;
-		private bool connected;
 
-		//private Node node;
-
-		public Person(int id, float x, float y, float z)
+		public Person(int id)
 		{
 			this.id = id;
-			initialPosition = new Vector3(x, y, z);
 		}
 
 		public void AddFriendship(Friendship f)
