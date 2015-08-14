@@ -14,5 +14,12 @@ namespace DeathBook.Model
 			friend2 = p2;
 			importance = scale;
 		}
+
+		public Person GetFriend(Person p)
+		{
+			if (p == friend1)
+				return friend2;
+			return friend1;
+		}
 	}
 }

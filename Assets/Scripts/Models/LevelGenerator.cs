@@ -135,6 +135,7 @@ namespace DeathBook.Model
 
 			//Person p = new Person(id, pos,);
 			Person p = new Person(id);
+			p.initialPosition = pos;
 
 			return p;
 		}
