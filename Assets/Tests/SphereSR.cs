@@ -6,7 +6,7 @@ using DeathBook.Model;
 public class SphereSR : MonoBehaviour
 {
     public FriendshipLink LinkObj;
-    public PersonTest PersonObj;
+    public PersonNode PersonObj;
     public int NumPeople = 50;
 	public int AvgNumFriends = 20;
 	public float FriendshipLikeliness = 0.4f;
@@ -18,7 +18,7 @@ public class SphereSR : MonoBehaviour
     private Vector3 delta = new Vector3();
     private Rigidbody rb;
 
-    private PersonTest[] peopleNodes;
+    private PersonNode[] peopleNodes;
 	//TODO private Friendship[] friendships;
     private GameObject[] nodes;
 
@@ -83,13 +83,13 @@ public class SphereSR : MonoBehaviour
 
     private void InstantiateNodes(Level lvl)
     {
-        peopleNodes = new PersonTest[lvl.people.Count];
+        peopleNodes = new PersonNode[lvl.people.Count];
 
 		int ctr = 0;
 		foreach (Person p in lvl.people)
 		{
 
-			PersonTest pInst = Instantiate(PersonObj, p.initialPosition, Quaternion.identity) as PersonTest;
+            PersonNode pInst = Instantiate(PersonObj, p.initialPosition, Quaternion.identity) as PersonNode;
 
 			pInst.transform.parent = this.transform;
 

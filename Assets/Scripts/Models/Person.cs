@@ -32,6 +32,11 @@ namespace DeathBook.Model
             get { return alive; }
         }
 
+        public int AwarenessLevel
+        {
+            get { return awarenessLevel; }
+        }
+
         public List<Friendship> FriendList
         {
             get { return friendList; }
@@ -40,6 +45,11 @@ namespace DeathBook.Model
         public int FriendsCount
         {
             get { return numFriends; }
+        }
+
+        public bool Online
+        {
+            get { return connected; }
         }
 
 		public Person(int id, float x, float y, float z)

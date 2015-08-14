@@ -6,7 +6,7 @@ using DeathBook.Model;
 public class NetworkingSphere : MonoBehaviour
 {
     public FriendshipLink LinkObj;
-    public PersonTest PersonObj;
+    public PersonNode PersonObj;
     public int NumPeople = 50;
     public int AvgNumFriends = 20;
     public float FriendshipLikeliness = 0.4f;
@@ -21,10 +21,10 @@ public class NetworkingSphere : MonoBehaviour
     private Vector3 delta = new Vector3();
     private Rigidbody rb;
 
-    private PersonTest[] peopleNodes;
+    private PersonNode[] peopleNodes;
     //TODO private Friendship[] friendships;
 
-    private PersonTest _selectedNode;
+    private PersonNode _selectedNode;
 
     void Awake()
     {
@@ -38,6 +38,9 @@ public class NetworkingSphere : MonoBehaviour
 
     void Update()
     {
+        //TEMPORARY QUICK FIX: Even though we are never moving the sphere, it starts moving as soon as it stops rotating
+        transform.position = Vector3.zero;
+
         Vector3 screenMousePos = Input.mousePosition;
 
         screenMousePos.z = transform.position.z - Camera.main.transform.position.z;
@@ -84,13 +87,13 @@ public class NetworkingSphere : MonoBehaviour
 
     private void InstantiateNodes(Level lvl)
     {
-        peopleNodes = new PersonTest[lvl.people.Count];
+        peopleNodes = new PersonNode[lvl.people.Count];
 
         for (int i = 0; i < lvl.people.Count; i++)
         {
             Person person = lvl.people[i];
 
-            PersonTest pInst = Instantiate(PersonObj, person.initialPosition, Quaternion.identity) as PersonTest;
+            PersonNode pInst = Instantiate(PersonObj, person.initialPosition, Quaternion.identity) as PersonNode;
 
             pInst.OnClicked += OnNodeClicked;
 
@@ -101,7 +104,7 @@ public class NetworkingSphere : MonoBehaviour
         }
     }
 
-    private void OnNodeClicked(PersonTest node)
+    private void OnNodeClicked(PersonNode node)
     {
         if (_selectedNode != null)
         {

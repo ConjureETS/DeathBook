@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LinkObj: {fileID: 11495142, guid: fab430cecad80ad4391987a06b550cb7, type: 2}
-  PersonObj: {fileID: 11406500, guid: d4b0e683ea5ec974987ea1f6741b333c, type: 2}
+  PersonObj: {fileID: 11417564, guid: 7a5b1db47a2c30e419038df40dffa79a, type: 2}
   NumPeople: 100
   AvgNumFriends: 10
   FriendshipLikeliness: .300000012
