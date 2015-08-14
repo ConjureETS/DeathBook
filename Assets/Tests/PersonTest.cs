@@ -1,19 +1,35 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DeathBook.Model;
+using System;
 
 [RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Renderer))]
 public class PersonTest : MonoBehaviour
 {
-    public PersonDetailsPanel DetailsPanel;
+    public Action<PersonTest> OnClicked;
 
-    // Temporary, for test
+    public Color NormalColor;
+    public Color SelectedColor;
+
     private List<FriendshipLink> _links;
     private bool _highlighted = false;
+    private bool _selected = false;
+
+    private Person _model;
+    private Renderer _renderer;
+
+    public Person Model
+    {
+        set { _model = value; }
+        get { return _model; }
+    }
 
     void Awake()
     {
         _links = new List<FriendshipLink>();
+        _renderer = GetComponent<Renderer>();
     }
 
     public void AddLink(FriendshipLink link)
@@ -21,26 +37,49 @@ public class PersonTest : MonoBehaviour
         _links.Add(link);
     }
 
-    void OnMouseOver()
+    public void Select(bool state)
     {
-        if (!_highlighted)
-        {
-            _highlighted = true;
+        _selected = state;
+        UpdateLinks(state);
+        _renderer.material.color = state ? SelectedColor : NormalColor;
+    }
 
-            foreach (FriendshipLink link in _links)
-            {
-                link.Highlight(true, 1f);
-            }
+    private void UpdateLinks(bool state)
+    {
+        foreach (FriendshipLink link in _links)
+        {
+            link.Highlight(state, 1f);
         }
+    }
+
+    void OnMouseEnter()
+    {
+        if (!_selected && !_highlighted)
+        {
+            UpdateLinks(true);
+        }
+
+        _highlighted = true;
     }
 
     void OnMouseExit()
     {
-        _highlighted = false;
-
-        foreach (FriendshipLink link in _links)
+        if (!_selected)
         {
-            link.Highlight(false, 1f);
+            UpdateLinks(false);
         }
+
+        _highlighted = false;
+    }
+
+    void OnMouseDown()
+    {
+        // The sphere should be subscribed to this event and update the data accordingly
+        if (OnClicked != null)
+        {
+            OnClicked(this);
+        }
+
+        Debug.Log("clicked");
     }
 }

@@ -96,6 +96,7 @@ MonoBehaviour:
   SphereRadius: 7
   rotationSpeed: .699999988
   torqueForce: 1
+  DetailsPanel: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

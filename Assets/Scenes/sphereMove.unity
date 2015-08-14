@@ -258,14 +258,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0907c1567bad554c8b995de3459e517, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextPosition: {x: 0, y: 0, z: 0}
-  moveSpeed: 1
-  Link: {fileID: 11495142, guid: fab430cecad80ad4391987a06b550cb7, type: 2}
-  Person: {fileID: 11406500, guid: 646dd6566f9e1374caa3af8ad37c43d3, type: 2}
-  PointsAmount: 200
+  LinkObj: {fileID: 11495142, guid: fab430cecad80ad4391987a06b550cb7, type: 2}
+  PersonObj: {fileID: 11406500, guid: d4b0e683ea5ec974987ea1f6741b333c, type: 2}
+  NumPeople: 50
+  AvgNumFriends: 8
+  FriendshipLikeliness: .400000006
   SphereRadius: 7
   rotationSpeed: .699999988
-  torqueForce: 35
+  torqueForce: .100000001
+  DetailsPanel: {fileID: 0}
 --- !u!54 &736567790
 Rigidbody:
   m_ObjectHideFlags: 0

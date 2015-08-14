@@ -1,29 +1,55 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 namespace DeathBook.Model
 {
-	public class Person
+	public class Person : Observable
 	{
 		public int id;
 		private string name;
 		private List<Friendship> friendList = new List<Friendship>();
 		public Vector3 initialPosition;
-		public float connectionTime;
-		public float disconnectionTime;
-		public float awarenessLevel;
-		public bool alive;
-		public bool connected;
-
 		public int numFriends;
-		public int timeBetweenPosts; // f = 1/T;
-		public float importance; // Size of the quad
+		private int timeBetweenPosts; // f = 1/T;
+		private int connectionTime;
+		private int disconnectionTime;
+		private int awarenessLevel;
+		private bool alive;
 
 		private int happiness;
+		private bool connected;
 
-		public Person(int id)
+		//private Node node;
+
+        public string Name
+        {
+            get { return name; }
+        }
+
+        public bool Alive
+        {
+            get { return alive; }
+        }
+
+        public List<Friendship> FriendList
+        {
+            get { return friendList; }
+        }
+
+        public int FriendsCount
+        {
+            get { return numFriends; }
+        }
+
+		public Person(int id, float x, float y, float z)
 		{
 			this.id = id;
+			initialPosition = new Vector3(x, y, z);
+            alive = true;
+
+            // Temporary
+            name = String.Format("Firstname{0} Lastname{0}", id);
 		}
 
 		public void AddFriendship(Friendship f)

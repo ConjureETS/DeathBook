@@ -14,13 +14,17 @@ public class NetworkingSphere : MonoBehaviour
     public float rotationSpeed = 0.7f;
 
     public float torqueForce = 50f;
+
+    public PersonDetailsPanel DetailsPanel;
+
     private bool dragging = false;
     private Vector3 delta = new Vector3();
     private Rigidbody rb;
 
     private PersonTest[] peopleNodes;
     //TODO private Friendship[] friendships;
-    private GameObject[] nodes;
+
+    private PersonTest _selectedNode;
 
     void Awake()
     {
@@ -73,28 +77,41 @@ public class NetworkingSphere : MonoBehaviour
             rb.angularVelocity *= 0.8f;
         }
         delta += new Vector3(deltaX, deltaY, 0);
-        //rigidbody.AddTorque();
+
         rb.AddTorque(Vector3.down * delta.x * torqueForce * Time.deltaTime, ForceMode.Impulse);
         rb.AddTorque(Vector3.right * delta.y * torqueForce * Time.deltaTime, ForceMode.Impulse);
-        Debug.Log(delta.x + ", " + delta.y);
-
-
     }
 
     private void InstantiateNodes(Level lvl)
     {
         peopleNodes = new PersonTest[lvl.people.Count];
 
-        int ctr = 0;
-        foreach (Person p in lvl.people)
+        for (int i = 0; i < lvl.people.Count; i++)
         {
+            Person person = lvl.people[i];
 
-            PersonTest pInst = Instantiate(PersonObj, p.initialPosition, Quaternion.identity) as PersonTest;
+            PersonTest pInst = Instantiate(PersonObj, person.initialPosition, Quaternion.identity) as PersonTest;
 
+            pInst.OnClicked += OnNodeClicked;
+
+            pInst.Model = person;
             pInst.transform.parent = this.transform;
 
-            peopleNodes[ctr++] = pInst;
+            peopleNodes[i] = pInst;
         }
+    }
+
+    private void OnNodeClicked(PersonTest node)
+    {
+        if (_selectedNode != null)
+        {
+            _selectedNode.Select(false);
+        }
+
+        DetailsPanel.SetModel(node.Model);
+        node.Select(true);
+
+        _selectedNode = node;
     }
 
     private void AssignLinks(Level lvl)
