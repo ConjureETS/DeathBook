@@ -42,10 +42,15 @@ namespace DeathBook.Model
             get { return numFriends; }
         }
 
-		public Person(int id, float x, float y, float z)
+		public bool Connected
+		{
+			get { return connected; }
+		}
+
+		public Person(int id, Vector3 pos)
 		{
 			this.id = id;
-			initialPosition = new Vector3(x, y, z);
+			initialPosition = pos;
             alive = true;
 
             // Temporary

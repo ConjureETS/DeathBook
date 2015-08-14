@@ -134,7 +134,7 @@ namespace DeathBook.Model
 			//Vector2 times = 
 
 			//Person p = new Person(id, pos,);
-			Person p = new Person(id);
+			Person p = new Person(id, pos);
 			p.initialPosition = pos;
 
 			return p;
