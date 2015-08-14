@@ -26,7 +26,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 182606}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.96046448e-08, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -90,9 +90,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LinkObj: {fileID: 11495142, guid: fab430cecad80ad4391987a06b550cb7, type: 2}
   PersonObj: {fileID: 11417564, guid: 7a5b1db47a2c30e419038df40dffa79a, type: 2}
-  NumPeople: 100
-  AvgNumFriends: 10
-  FriendshipLikeliness: .300000012
+  NumPeople: 50
+  AvgNumFriends: 8
+  FriendshipLikeliness: .400000006
   SphereRadius: 7
   rotationSpeed: .699999988
   torqueForce: 1
