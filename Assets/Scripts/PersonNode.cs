@@ -40,8 +40,8 @@ public class PersonNode : MonoBehaviour, IObserver
 
     private void SetProfilePicture()
     {
-        internQuad.material.mainTexture = _model.Picture;
-        internQuad.material.SetTexture("_MainTex", _model.Picture);
+        internQuad.material.mainTexture = _model.Picture.texture;
+        internQuad.material.SetTexture("_MainTex", _model.Picture.texture);
     }
 
     void Awake()

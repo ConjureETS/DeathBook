@@ -20,7 +20,7 @@ namespace DeathBook.Model
 		private int happiness;
 		private bool connected;
 
-        private Texture picture;
+        private Sprite picture;
 
 		//private Node node;
 
@@ -54,7 +54,7 @@ namespace DeathBook.Model
             get { return connected; }
         }
 
-        public Texture Picture
+        public Sprite Picture
         {
             get { return picture; }
         }

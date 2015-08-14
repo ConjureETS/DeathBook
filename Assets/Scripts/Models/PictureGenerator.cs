@@ -24,7 +24,7 @@ public class PictureGenerator
         }
     }
 
-    public static Texture GetFemalePicture()
+    public static Sprite GetFemalePicture()
     {
         // Might be a little heavy, but since it's only done once, it's not that bad
 
@@ -34,10 +34,10 @@ public class PictureGenerator
 
         pictureIndexesFemale.RemoveAt(index);
 
-        return Resources.Load(String.Format("ProfilePictures/F_{0}", picID)) as Texture;
+        return Resources.Load<Sprite>(String.Format("ProfilePictures/F_{0}", picID));
     }
 
-    public static Texture GetMalePicture()
+    public static Sprite GetMalePicture()
     {
         // Might be a little heavy, but since it's only done once, it's not that bad
 
@@ -47,6 +47,6 @@ public class PictureGenerator
 
         pictureIndexesMale.RemoveAt(index);
 
-        return Resources.Load(String.Format("ProfilePictures/M_{0}", picID)) as Texture;
+        return Resources.Load<Sprite>(String.Format("ProfilePictures/M_{0}", picID));
     }
 }
