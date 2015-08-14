@@ -11,21 +11,31 @@ public class PersonDetailsPanel : MonoBehaviour, IObserver
     public Button KillButton;
     public Button WatchButton;
     public Button XButton;
+    public GameObject Container;
 
     public Image UIFriendPicture;
 
+    private PersonNode _node;
     private Person _model;
 
-    public void SetModel(Person model)
+    void Awake()
+    {
+        Container.SetActive(false);
+    }
+
+    public void SetNode(PersonNode node)
     {
         if (_model != null)
         {
             _model.UnSubscribe(this);
         }
 
-        _model = model;
+        _node = node;
+        _model = node.Model;
 
         _model.Subscribe(this);
+
+        Container.SetActive(true);
 
         UpdateInfo();
     }
@@ -44,8 +54,8 @@ public class PersonDetailsPanel : MonoBehaviour, IObserver
             Destroy(picture.gameObject);
         }
 
-        //FriendsPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(90f, 21 * _model.FriendList.Count);
-
+        ProfilePicture.sprite = _model.Picture;
+        
         RectTransform panelTrans = FriendsPanel.GetComponent<RectTransform>();
 
         panelTrans.anchorMin = new Vector2(0f, -0.3125f * _model.FriendList.Count);
@@ -57,7 +67,6 @@ public class PersonDetailsPanel : MonoBehaviour, IObserver
 
         for (int i = 0; i < _model.FriendList.Count; i++)
         {
-            // Temporary, until the model changes
             Person friend = _model.FriendList[i].friend1 == _model ? _model.FriendList[i].friend2 : _model.FriendList[i].friend1;
 
             Image friendPicture = Instantiate(UIFriendPicture) as Image;
@@ -79,7 +88,11 @@ public class PersonDetailsPanel : MonoBehaviour, IObserver
                 Debug.Log(friendPicture.rectTransform.position);
             }
         }
+    }
 
-
+    public void Close()
+    {
+        Container.SetActive(false);
+        _node.Select(false);
     }
 }
