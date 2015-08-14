@@ -159,7 +159,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
-  m_StereoMirrorMode: 0
 --- !u!4 &61719365
 Transform:
   m_ObjectHideFlags: 0
@@ -259,7 +258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LinkObj: {fileID: 11495142, guid: fab430cecad80ad4391987a06b550cb7, type: 2}
-  PersonObj: {fileID: 11406500, guid: d4b0e683ea5ec974987ea1f6741b333c, type: 2}
+  PersonObj: {fileID: 11417564, guid: 7a5b1db47a2c30e419038df40dffa79a, type: 2}
   NumPeople: 50
   AvgNumFriends: 8
   FriendshipLikeliness: .400000006

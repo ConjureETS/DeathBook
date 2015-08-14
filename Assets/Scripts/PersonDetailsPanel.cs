@@ -21,9 +21,10 @@ public class PersonDetailsPanel : MonoBehaviour, IObserver
             _model.UnSubscribe(this);
         }
 
+        _model = model;
+
         _model.Subscribe(this);
 
-        _model = model;
         UpdateInfo();
     }
 

@@ -32,6 +32,11 @@ namespace DeathBook.Model
             get { return alive; }
         }
 
+        public int AwarenessLevel
+        {
+            get { return awarenessLevel; }
+        }
+
         public List<Friendship> FriendList
         {
             get { return friendList; }
@@ -42,10 +47,10 @@ namespace DeathBook.Model
             get { return numFriends; }
         }
 
-		public bool Connected
-		{
-			get { return connected; }
-		}
+        public bool Online
+        {
+            get { return connected; }
+        }
 
 		public Person(int id, Vector3 pos)
 		{
@@ -53,7 +58,7 @@ namespace DeathBook.Model
 			initialPosition = pos;
             alive = true;
 
-            // Temporary
+            // TODO Use names from db
             name = String.Format("Firstname{0} Lastname{0}", id);
 		}
 
