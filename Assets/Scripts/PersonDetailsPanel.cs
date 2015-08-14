@@ -16,6 +16,13 @@ public class PersonDetailsPanel : MonoBehaviour, IObserver
 
     public void SetModel(Person model)
     {
+        if (_model != null)
+        {
+            _model.UnSubscribe(this);
+        }
+
+        _model.Subscribe(this);
+
         _model = model;
         UpdateInfo();
     }
