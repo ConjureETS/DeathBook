@@ -20,6 +20,8 @@ namespace DeathBook.Model
 		private int happiness;
 		private bool connected;
 
+        private Texture picture;
+
 		//private Node node;
 
         public string Name
@@ -52,11 +54,19 @@ namespace DeathBook.Model
             get { return connected; }
         }
 
+        public Texture Picture
+        {
+            get { return picture; }
+        }
+
 		public Person(int id, float x, float y, float z)
 		{
 			this.id = id;
 			initialPosition = new Vector3(x, y, z);
             alive = true;
+
+            // For testing purposes
+            picture = UnityEngine.Random.Range(0, 2) == 0 ? PictureGenerator.GetFemalePicture() : PictureGenerator.GetMalePicture();
 
             // Temporary
             name = String.Format("Firstname{0} Lastname{0}", id);

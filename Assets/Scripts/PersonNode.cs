@@ -34,7 +34,14 @@ public class PersonNode : MonoBehaviour, IObserver
             _model = value;
             _model.Subscribe(this);
             UpdateInfo();
+            SetProfilePicture();
         }
+    }
+
+    private void SetProfilePicture()
+    {
+        internQuad.material.mainTexture = _model.Picture;
+        internQuad.material.SetTexture("_MainTex", _model.Picture);
     }
 
     void Awake()

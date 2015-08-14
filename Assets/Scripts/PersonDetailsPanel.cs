@@ -36,5 +36,11 @@ public class PersonDetailsPanel : MonoBehaviour, IObserver
     private void UpdateInfo()
     {
         Name.text = _model.Name;
+
+        for (int i = 0; i < _model.FriendList.Count; i++)
+        {
+            // Temporary, until the model changes
+            Person friend = _model.FriendList[i].friend1 == _model ? _model.FriendList[i].friend2 : _model.FriendList[i].friend1;
+        }
     }
 }
