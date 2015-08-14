@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 namespace DeathBook.Model
 {
-	public class Person
+	public class Person : Observable
 	{
 		public int id;
 		private string name;
@@ -21,10 +22,34 @@ namespace DeathBook.Model
 
 		//private Node node;
 
+        public string Name
+        {
+            get { return name; }
+        }
+
+        public bool Alive
+        {
+            get { return alive; }
+        }
+
+        public List<Friendship> FriendList
+        {
+            get { return friendList; }
+        }
+
+        public int FriendsCount
+        {
+            get { return numFriends; }
+        }
+
 		public Person(int id, float x, float y, float z)
 		{
 			this.id = id;
 			initialPosition = new Vector3(x, y, z);
+            alive = true;
+
+            // Temporary
+            name = String.Format("Firstname{0} Lastname{0}", id);
 		}
 
 		public void AddFriendship(Friendship f)
