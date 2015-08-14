@@ -1,82 +1,86 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+using DeathBook.Util;
 
 namespace DeathBook.Model
 {
-	public class Person : Observable
+	public class Person : Observable, Updatable
 	{
 		public int id;
-		private string name;
-		private List<Friendship> friendList = new List<Friendship>();
-		public Vector3 initialPosition;
-		public int numFriends;
+		public int Id { get { return id; } }
+
+		private string firstName;
+		private string lastName;
+		public string Name { get { return firstName + " " + lastName; } }
+		public string FirstName { get { return firstName; } }
+
+		private Vector3 initialPosition;
+		public Vector3 InitialPosition { get { return initialPosition; } }
+
+		private List<Friendship> friendsList = new List<Friendship>();
+		public List<Friendship> FriendList { get { return friendsList; } }
+		private List<Friendship> deadFriendsList = new List<Friendship>();
+		public List<Friendship> DeadFriendList { get { return deadFriendsList; } }
+
+		private int numAliveFriends = 0;
+		private int numDeadFriends = 0;
+		private int friendCount = 0;
+        public int FriendCount { get { return friendCount; } }
+
 		private int timeBetweenPosts; // f = 1/T;
-		private int connectionTime;
-		private int disconnectionTime;
-		private int awarenessLevel;
-		private bool alive;
+		public int TimeBetweenPosts { get { return timeBetweenPosts; } }
 
-		private int happiness;
-		private bool connected;
+		private float connectionTime;
+		public float ConnectionTime { get { return connectionTime; } }
 
-		//private Node node;
+		private float disconnectionTime;
+		public float DisconnectionTime { get { return disconnectionTime; } }
 
-        public string Name
-        {
-            get { return name; }
-        }
+		private float awarenessLevel = 0; //on a scale from 0 to 1
+		public float AwarenessLevel { get { return awarenessLevel; } }
 
-        public bool Alive
-        {
-            get { return alive; }
-        }
+		private bool alive = true;
+		public bool Alive { get { return alive; } }
 
-        public int AwarenessLevel
-        {
-            get { return awarenessLevel; }
-        }
+		//private int happiness = 1; //on a scale from 0 to 1
+		//public int Happiness { get { return happiness; } }
 
-        public List<Friendship> FriendList
-        {
-            get { return friendList; }
-        }
-
-        public int FriendsCount
-        {
-            get { return numFriends; }
-        }
-
-        public bool Online
-        {
-            get { return connected; }
-        }
+		private bool online = false;
+		public bool Online { get { return online; } }
 
 		public Person(int id, Vector3 pos)
 		{
 			this.id = id;
 			initialPosition = pos;
-            alive = true;
 
             // TODO Use names from db
-            name = String.Format("Firstname{0} Lastname{0}", id);
+			firstName = "Mark";
+			lastName = "Zuckerberg";
 		}
 
 		public void AddFriendship(Friendship f)
 		{
-			friendList.Add(f);
-			numFriends++;
+			friendsList.Add(f);
+			numAliveFriends++;
+			friendCount++;
 		}
 
-		private bool isConnected(int time)
+		public void KillFriend(Friendship f)
 		{
-			return disconnectionTime > time && time > connectionTime;
+			numAliveFriends--;
+			numDeadFriends++;
+			deadFriendsList.Add(f);
 		}
 
-		private int calculateWeight()
+		public void Update(float deltaTime)
 		{
-			//friendCount * ____ + 1/timeBetweenPosts + }
-			return 0;
+			//TODO Update if connected
+			int time = LevelManager.Instance.GameLevel.GameTime;
+
+			//The following actions are only performed if user is online
+			if (!Online)
+				return;
 		}
 	}
 }

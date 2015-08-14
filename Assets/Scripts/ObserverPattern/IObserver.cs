@@ -1,4 +1,7 @@
-﻿public interface IObserver
+﻿namespace DeathBook.Util
 {
-    void Notify();
+	public interface IObserver
+	{
+		void Notify();
+	}
 }

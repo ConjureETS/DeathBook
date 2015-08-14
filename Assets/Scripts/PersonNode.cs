@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DeathBook.Model;
+using DeathBook.Util;
 using System;
 
 [RequireComponent(typeof(Collider))]
@@ -18,7 +19,7 @@ public class PersonNode : MonoBehaviour, IObserver
     public Renderer internQuad;
     public Renderer xQuad;
 
-    private List<FriendshipLink> _links;
+    private List<Link> _links;
     private bool _highlighted = false;
     private bool _selected = false;
 
@@ -39,7 +40,7 @@ public class PersonNode : MonoBehaviour, IObserver
 
     void Awake()
     {
-        _links = new List<FriendshipLink>();
+        _links = new List<Link>();
         _renderer = GetComponent<Renderer>();
         _transform = GetComponent<Transform>();
     }
@@ -50,7 +51,7 @@ public class PersonNode : MonoBehaviour, IObserver
         _transform.LookAt(new Vector3(_transform.position.x, _transform.position.y, _transform.position.z + 1));
     }
 
-    public void AddLink(FriendshipLink link)
+    public void AddLink(Link link)
     {
         _links.Add(link);
     }
@@ -72,7 +73,7 @@ public class PersonNode : MonoBehaviour, IObserver
 
     private void UpdateLinks(bool state)
     {
-        foreach (FriendshipLink link in _links)
+        foreach (Link link in _links)
         {
             link.Highlight(state, 1f);
         }

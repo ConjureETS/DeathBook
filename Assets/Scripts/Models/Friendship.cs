@@ -1,25 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
+using DeathBook.Util;
 
 namespace DeathBook.Model
 {
-	public class Friendship
+	public class Friendship : Observable, Updatable
 	{
-		public Person friend1, friend2;
-		private int importance; //on a scale from 1 to 100
+		private Person self;
+		public Person Self { get { return self; } }
+		private Person friend;
+		public Person Friend { get { return friend; } }
+		
+		private Friendship other;
+		public Friendship Other { get { return other; } set { other = value; } }
 
-		public Friendship(Person p1, Person p2, int scale)
+		private FriendshipLink link;
+		public FriendshipLink Link { get { return link; } }
+
+		private float awareness = 0; //on a scale from 0 to 1
+		public float Awareness { get { return awareness; } }
+
+		public Friendship(Person self, Person friend)
 		{
-			friend1 = p1;
-			friend2 = p2;
-			importance = scale;
+			this.self = self;
+			this.friend = friend;
 		}
 
-		public Person GetFriend(Person p)
+		public void Update(float deltaTime)
 		{
-			if (p == friend1)
-				return friend2;
-			return friend1;
+			//This function is only called when friend is dead
+			awareness = Mathf.Max(awareness + deltaTime * CalculateWeight(), 100);
+
+			NotifyObservers();
+		}
+
+		//returns a number between 0 and 1
+		private float CalculateWeight()
+		{
+			float weight = 0;
+
+			weight += link.Importance;
+
+			return weight;
+		}
+
+		internal enum Knowledge
+		{
+			Alive, Doubt, Dead
 		}
 	}
 }

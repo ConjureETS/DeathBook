@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using DeathBook.Model;
+using DeathBook.Util;
 
 public class PersonDetailsPanel : MonoBehaviour, IObserver
 {

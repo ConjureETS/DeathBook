@@ -5,7 +5,7 @@ using DeathBook.Model;
 
 public class NetworkingSphere : MonoBehaviour
 {
-    public FriendshipLink LinkObj;
+    public Link LinkObj;
     public PersonNode PersonObj;
     public int NumPeople = 50;
     public int AvgNumFriends = 20;
@@ -22,14 +22,14 @@ public class NetworkingSphere : MonoBehaviour
     private Rigidbody rb;
 
     private PersonNode[] peopleNodes;
-    //TODO private Friendship[] friendships;
 
     private PersonNode _selectedNode;
 
     void Awake()
     {
-        LevelGenerator lGen = new LevelGenerator();
-        Level lvl = lGen.GenerateLevel(NumPeople, AvgNumFriends, FriendshipLikeliness, SphereRadius);
+		LevelManager manager = LevelManager.Instance;
+		manager.NewLevel(NumPeople, AvgNumFriends, FriendshipLikeliness, SphereRadius);
+		Level lvl = manager.GameLevel;
 
         InstantiateNodes(lvl);
         AssignLinks(lvl);
@@ -87,13 +87,13 @@ public class NetworkingSphere : MonoBehaviour
 
     private void InstantiateNodes(Level lvl)
     {
-        peopleNodes = new PersonNode[lvl.people.Count];
+        peopleNodes = new PersonNode[lvl.People.Count];
 
-        for (int i = 0; i < lvl.people.Count; i++)
+        for (int i = 0; i < lvl.People.Count; i++)
         {
-            Person person = lvl.people[i];
+            Person person = lvl.People[i];
 
-            PersonNode pInst = Instantiate(PersonObj, person.initialPosition, Quaternion.identity) as PersonNode;
+            PersonNode pInst = Instantiate(PersonObj, person.InitialPosition, Quaternion.identity) as PersonNode;
 
             pInst.OnClicked += OnNodeClicked;
 
@@ -119,11 +119,11 @@ public class NetworkingSphere : MonoBehaviour
 
     private void AssignLinks(Level lvl)
     {
-        foreach (Friendship f in lvl.friendships)
+        foreach (FriendshipLink f in lvl.Friendships)
         {
-            FriendshipLink link = Instantiate(LinkObj) as FriendshipLink;
-            int id1 = f.friend1.id;
-            int id2 = f.friend2.id;
+            Link link = Instantiate(LinkObj) as Link;
+            int id1 = f.Friend1.id;
+            int id2 = f.Friend2.id;
             link.AttachToObjects(peopleNodes[id1].gameObject, peopleNodes[id2].gameObject);
 
             // Temporary stuff, for testing

@@ -2,7 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(LineRenderer))]
-public class FriendshipLink : MonoBehaviour
+public class Link : MonoBehaviour
 {
     public Color HighlightedColor = new Color(1f, 1f, 1f, 0.5f);
 
