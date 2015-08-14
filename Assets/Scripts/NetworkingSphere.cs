@@ -53,7 +53,7 @@ public class NetworkingSphere : MonoBehaviour
             transform.Rotate(Vector3.one * Time.deltaTime * rotationSpeed);
         }
 
-        //when right btn clicked, call the chnge rotation
+        //when right btn clicked, call MoveSphere
         if (Input.GetMouseButtonDown(1))
         {
             dragging = true;
@@ -67,6 +67,12 @@ public class NetworkingSphere : MonoBehaviour
         if (dragging)
         {
             MoveSphere();
+        }
+
+        //scroll
+        if (Input.GetAxis("Mouse ScrollWheel") != 0)
+        {
+            Camera.main.fieldOfView += Input.GetAxis("Mouse ScrollWheel") * 10f;
         }
     }
 
