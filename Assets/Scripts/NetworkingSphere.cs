@@ -72,7 +72,11 @@ public class NetworkingSphere : MonoBehaviour
         //scroll
         if (Input.GetAxis("Mouse ScrollWheel") != 0)
         {
-            Camera.main.fieldOfView += Input.GetAxis("Mouse ScrollWheel") * 10f;
+           // if (Camera.main.ScreenToViewportPoint(Input.mousePosition) < new Vector3(1,1,1))
+            if (Camera.main.ScreenToViewportPoint(Input.mousePosition).x < 1)
+            {
+                Camera.main.fieldOfView += Input.GetAxis("Mouse ScrollWheel") * 10f;
+            }
         }
     }
 
