@@ -43,10 +43,7 @@ namespace DeathBook.Model
 		private bool alive = true;
 		public bool Alive { get { return alive; } }
 
-		//private int happiness = 1; //on a scale from 0 to 1
-		//public int Happiness { get { return happiness; } }
-
-		private bool online = false;
+		private bool online = true;
 		public bool Online { get { return online; } }
 
 		public Person(int id, Vector3 pos)
@@ -66,11 +63,30 @@ namespace DeathBook.Model
 			friendCount++;
 		}
 
-		public void KillFriend(Friendship f)
+		public void NotifyFriendWasKilled(Friendship f)
 		{
+			Debug.Log("I am " + id + " and my friend " + f.Friend.Id + " was killed");
 			numAliveFriends--;
 			numDeadFriends++;
 			deadFriendsList.Add(f);
+		}
+
+		public void Kill()
+		{
+			Debug.Log("Person " + id + " died!");
+			alive = false;
+			foreach (Friendship f in friendsList)
+				f.Friend.NotifyFriendWasKilled(f.Other);
+			NotifyObservers();
+		}
+
+		public void NoticeDeath(Friendship f)
+		{
+			//TODO apply more rules here
+			awarenessLevel = Mathf.Min(AwarenessLevel + 0.2f, 1f);
+			Debug.Log("I am " + id + " and I know my friend " + f.Friend.Id + " was killed.. " + AwarenessLevel);
+			//TODO remove from dead friends list to accelerate
+			NotifyObservers();
 		}
 
 		public void Update(float deltaTime)
@@ -78,9 +94,14 @@ namespace DeathBook.Model
 			//TODO Update if connected
 			int time = LevelManager.Instance.GameLevel.GameTime;
 
+
+
 			//The following actions are only performed if user is online
 			if (!Online)
 				return;
+
+			foreach (Friendship f in deadFriendsList)
+				f.Update(deltaTime);
 		}
 	}
 }

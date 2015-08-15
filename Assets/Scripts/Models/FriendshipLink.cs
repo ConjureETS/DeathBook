@@ -13,8 +13,12 @@ namespace DeathBook.Model
 		private float importance; //on a scale from 0 to 1
 		public float Importance { get { return importance; } }
 
-		private float risk = 0; //on a scale from 0 to 1
-		public float Risk { get { return risk; } }
+		private float awareness = 0; //on a scale from 0 to 1
+		public float Awareness
+		{
+			get { return awareness; }
+			set { awareness = value; NotifyObservers(); }
+		}
 
 		public FriendshipLink(Person p1, Person p2, float importance)
 		{

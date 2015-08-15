@@ -111,8 +111,6 @@ namespace DeathBook.Model
 					}
 					list.Remove(smallest);
 				}
-
-				Debug.Log("Friends + " + p1.FriendCount);
 			}
 
 			return friendships;
@@ -120,9 +118,9 @@ namespace DeathBook.Model
 
 		private FriendshipLink CreateFriendship(Person p1, Person p2)
 		{
-			FriendshipLink f = new FriendshipLink(p1, p2, Random.Range(1,100));
-			Friendship f1 = new Friendship(p1, p2);
-			Friendship f2 = new Friendship(p2, p1);
+			FriendshipLink f = new FriendshipLink(p1, p2, Random.value);
+			Friendship f1 = new Friendship(p1, p2, f);
+			Friendship f2 = new Friendship(p2, p1, f);
 			f1.Other = f2;
 			f2.Other = f1;
 

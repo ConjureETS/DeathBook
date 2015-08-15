@@ -154,12 +154,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c9bbff116cac264d9d7fdcce8cf92e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HighlightedColor: {r: 1, g: 1, b: 1, a: .501960814}
+  HighlightedColor: {r: 1, g: 1, b: 1, a: .258823544}
   StartPoint: {fileID: 495136}
   EndPoint: {fileID: 495134}
   BeamLine: {fileID: 12095142}
-  StartObject: {fileID: 0}
-  EndObject: {fileID: 0}
 --- !u!120 &12095142
 LineRenderer:
   m_ObjectHideFlags: 1
