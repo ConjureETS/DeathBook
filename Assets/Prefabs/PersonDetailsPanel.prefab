@@ -457,7 +457,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 11431992}
   m_HandleRect: {fileID: 22417254}
   m_Direction: 2
-  m_Value: .99938184
+  m_Value: 1
   m_Size: .427392095
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -567,7 +567,7 @@ MonoBehaviour:
   m_Elasticity: .100000001
   m_Inertia: 1
   m_DecelerationRate: .135000005
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 10
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 11414010}
   m_OnValueChanged:
@@ -1093,7 +1093,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: 1}
   m_AnchorMax: {x: .5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -65.95327}
+  m_AnchoredPosition: {x: 0, y: -65.9999924}
   m_SizeDelta: {x: 90, y: 132}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22462244
