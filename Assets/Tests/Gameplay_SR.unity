@@ -581,7 +581,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22417254, guid: c993e87661906234fba410e55ed66832, type: 2}
       propertyPath: m_AnchorMin.y
-      value: .690773964
+      value: .590630949
       objectReference: {fileID: 0}
     - target: {fileID: 22417254, guid: c993e87661906234fba410e55ed66832, type: 2}
       propertyPath: m_AnchorMax.x
@@ -621,8 +621,12 @@ Prefab:
         type: 3}
     - target: {fileID: 22458514, guid: c993e87661906234fba410e55ed66832, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -69.4402313
+      value: -65.9512177
       objectReference: {fileID: 0}
+    - target: {fileID: 11476684, guid: c993e87661906234fba410e55ed66832, type: 2}
+      propertyPath: Container
+      value: 
+      objectReference: {fileID: 1178093757}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c993e87661906234fba410e55ed66832, type: 2}
   m_IsPrefabParent: 0
@@ -670,7 +674,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1057734535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -804,6 +808,10 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!1 &1178093757 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 147852, guid: c993e87661906234fba410e55ed66832, type: 2}
+  m_PrefabInternal: {fileID: 1009381200}
 --- !u!1 &1413393085
 GameObject:
   m_ObjectHideFlags: 0

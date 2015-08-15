@@ -45,6 +45,10 @@ namespace DeathBook.Model
 
 		private bool online = true;
 		public bool Online { get { return online; } }
+		
+		private Sprite picture;
+		public Sprite Picture { get { return picture; } }
+
 
 		public Person(int id, Vector3 pos)
 		{
@@ -54,6 +58,9 @@ namespace DeathBook.Model
             // TODO Use names from db
 			firstName = "Mark";
 			lastName = "Zuckerberg";
+
+			// For testing purposes
+			picture = UnityEngine.Random.Range(0, 2) == 0 ? PictureGenerator.GetFemalePicture() : PictureGenerator.GetMalePicture();
 		}
 
 		public void AddFriendship(Friendship f)

@@ -90,6 +90,17 @@ public class NetworkingSphere : MonoBehaviour
         {
             MoveSphere();
         }
+
+
+		//scroll
+		if (Input.GetAxis("Mouse ScrollWheel") != 0)
+		{
+			// if (Camera.main.ScreenToViewportPoint(Input.mousePosition) < new Vector3(1,1,1))
+			if (Camera.main.ScreenToViewportPoint(Input.mousePosition).x < 1)
+			{
+				Camera.main.fieldOfView -= Input.GetAxis("Mouse ScrollWheel") * 10f;
+			}
+		}
     }
 
     void MoveSphere()
@@ -135,7 +146,7 @@ public class NetworkingSphere : MonoBehaviour
 
 		node.Kill();
 
-        DetailsPanel.SetModel(node.Model);
+        DetailsPanel.SetNode(node);
         node.Select(true);
 
         _selectedNode = node;
