@@ -39,6 +39,7 @@ public class NetworkingSphere : MonoBehaviour
     private PersonNode[] peopleNodes;
 
     private PersonNode _selectedNode;
+    private float _timeSinceLastClick;
 
     // Used to disable the physics when the user has clicked on a node
     private bool _isRotatingTowardsNode = false;
@@ -61,6 +62,11 @@ public class NetworkingSphere : MonoBehaviour
 
     void Update()
     {
+        if (_timeSinceLastClick < 2f)
+        {
+            _timeSinceLastClick += Time.deltaTime;
+        }
+
 		manager.GameLevel.Update(Time.deltaTime);
 
         //TEMPORARY QUICK FIX: Even though we are never moving the sphere, it starts moving as soon as it stops rotating
@@ -142,20 +148,23 @@ public class NetworkingSphere : MonoBehaviour
 
     private void OnNodeClicked(PersonNode node)
     {
-        if (node == _selectedNode) return;
-
         if (_selectedNode != null)
         {
             _selectedNode.Select(false);
         }
 
+        if (_timeSinceLastClick < 0.5f && node == _selectedNode)
+        {
+            // We focus on the node if double clicked
+            FocusOnNode(node);
+        }
+
+        _timeSinceLastClick = 0f;
+
         DetailsPanel.SetNode(node);
         node.Select(true);
 
         _selectedNode = node;
-
-        // Testing to see how it looks and feels like
-        FocusOnNode(node);
     }
 
     private void AssignLinks(Level lvl)
@@ -223,7 +232,7 @@ public class NetworkingSphere : MonoBehaviour
 
         float ratio = 0f;
 
-        while (ratio < 1f)
+        while (ratio < 1f && transform.localRotation != finalRot)
         {
             ratio += Time.deltaTime / 1.5f;
 

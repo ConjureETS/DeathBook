@@ -5,7 +5,7 @@ using DeathBook.Util;
 
 namespace DeathBook.Model
 {
-	public class Friendship : Updatable
+	public class Friendship : Updatable, IComparable<Friendship>
 	{
 		private Person self;
 		public Person Self { get { return self; } }
@@ -52,6 +52,22 @@ namespace DeathBook.Model
 
 			return weight * 0.1f;
 		}
+
+        public int CompareTo(Friendship other)
+        {
+            int value = 0;
+
+            if (this.Friend.AwarenessLevel < other.Friend.AwarenessLevel)
+            {
+                value = 1;
+            }
+            else if (this.Friend.AwarenessLevel > other.Friend.AwarenessLevel)
+            {
+                value = -1;
+            }
+
+            return value;
+        }
 
 		/*internal enum Knowledge
 		{
