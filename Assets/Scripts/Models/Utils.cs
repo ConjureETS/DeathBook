@@ -28,5 +28,10 @@ namespace DeathBook.Model
 			}
 			return (sum / numSteps * 2 - 1) * range + mean;
 		}
+
+		public static string GetTimeString(int time)
+		{
+			return time / 60 + "h " + time % 60 + "m";
+		}
 	}
 }

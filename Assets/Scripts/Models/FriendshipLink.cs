@@ -20,6 +20,13 @@ namespace DeathBook.Model
 			set { awareness = value; NotifyObservers(); }
 		}
 
+		private int killCount = 0; //Number of people dead in this relationship
+		public int KillCount
+		{
+			get { return killCount; }
+			set { killCount = value; NotifyObservers(); }
+		}
+
 		public FriendshipLink(Person p1, Person p2, float importance)
 		{
 			friend1 = p1;
