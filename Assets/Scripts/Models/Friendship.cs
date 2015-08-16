@@ -27,6 +27,12 @@ namespace DeathBook.Model
 			this.link = link;
 		}
 
+		public void NotifyFriendWasKilled()
+		{
+			Link.KillCount++;
+			Self.NotifyFriendWasKilled(this);
+		}
+
 		public void Update(float deltaTime)
 		{
 			if (noticedDeath)

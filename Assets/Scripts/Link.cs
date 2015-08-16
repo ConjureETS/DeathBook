@@ -9,8 +9,10 @@ public class Link : MonoBehaviour, IObserver
 	private float highlightAlpha = 0.8f;
 	private float defaultAlpha = 0.5f;
 
-	private Color currentDefaultColor;
-	private Color currentHighlightColor;
+	private Color color;
+
+	private Color baseColor = new Color(0.3f, 0.7f, 1f);
+	private Color inactiveColor = new Color(0.15f, 0.15f, 0.05f);
 
 	private static float defaultScale = 0.03f;
 	private float hightlightScale = 0.2f;
@@ -40,7 +42,7 @@ public class Link : MonoBehaviour, IObserver
 			model.Subscribe(this);
 
 			//Make it between 0.1 and 0.4
-			GetColors(Model.Awareness);
+			GetColors();
 			hightlightScale = Model.Importance * 0.3f + 0.1f;
 			Highlight(false);
 		}
@@ -66,8 +68,10 @@ public class Link : MonoBehaviour, IObserver
 
 	public void Notify()
 	{
-		GetColors(Model.Awareness);
+		GetColors();
 		UpdateBeam();
+		if (Model.KillCount == 2)
+			hightlightScale = 0.1f;
 		//TODO SR
 	}
 
@@ -115,29 +119,23 @@ public class Link : MonoBehaviour, IObserver
 		UpdateBeam();
     }
 
-	private void GetColors(float level)
+	private void GetColors()
 	{
-		//If level is 0.0, green    [0,1,0].
-		//If level is 0.5, yellow [1,1,0].
-		//If level is 1.0, red      [1,0,0].
-
-		float r = 1f;
-		float g = 1f;
-
-		if (level < 0.5f)
-			r = Mathf.Lerp(0, 1, level*2);
+		if (Model.KillCount == 0)
+			color = baseColor;
+		else if (Model.KillCount == 2)
+			color = inactiveColor;
 		else
-			g = Mathf.Lerp(1, 0, level * 2 - 1);
-
-		currentDefaultColor = new Color(r, g, 0f, defaultAlpha);
-		currentHighlightColor = new Color(r, g, 0f, highlightAlpha);
+		color = new Color(1f, Mathf.Lerp(1, 0, Model.Awareness), 0f);
 	}
 
 	private void UpdateBeam()
 	{
 		float width = isHighlighted ? hightlightScale : defaultScale;
 		BeamLine.SetWidth(width, width);
+
+		color.a = isHighlighted ? highlightAlpha : defaultAlpha;
 		
-		_renderer.material.SetColor("_TintColor", isHighlighted ? currentHighlightColor : currentDefaultColor);
+		_renderer.material.SetColor("_TintColor", color);
 	}
 }

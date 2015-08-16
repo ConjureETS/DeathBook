@@ -133,9 +133,20 @@ namespace DeathBook.Model
 		private Person CreatePerson(int id, float x, float y, float z)
 		{
 			Vector3 pos = new Vector3(x, y, z);
-			//Vector2 times = 
+			//Value between 3 and 21
+			float connectionDuration = Utils.GetRandomValue(12, 9, 3);
+			int connectionTime = Random.Range(0, 24 * 60);
+			int disconnectionTime = (connectionTime + (int)(connectionDuration * 60)) % (24 * 60);
+			float freq = Utils.GetRandomValue(0, 1, 3);
 
-			Person p = new Person(id, pos);
+			bool isFemale = Random.value <= 0.5;
+			
+			string fName = "Fifi"; //isFemale ? NameGenerator.GetFemaleName() : NameGenerator.GetMaleName();
+			string lName = "Brindacier"; //NameGenerator.GetLastName();
+
+			Sprite pic = isFemale ? PictureGenerator.GetFemalePicture() : PictureGenerator.GetMalePicture();
+
+			Person p = new Person(id, fName, lName, pos, connectionTime, disconnectionTime, freq, pic);
 
 			return p;
 		}

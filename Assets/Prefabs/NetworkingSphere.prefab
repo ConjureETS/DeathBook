@@ -94,7 +94,7 @@ MonoBehaviour:
   levelOptions:
     NumPeople: 50
     AvgNumFriends: 8
-    FriendshipLikeliness: .400000006
+    FriendshipLikeliness: .600000024
     SphereRadius: 7
   rotationSpeed: .699999988
   torqueForce: 1
