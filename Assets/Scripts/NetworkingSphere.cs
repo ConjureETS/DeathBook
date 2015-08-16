@@ -149,8 +149,6 @@ public class NetworkingSphere : MonoBehaviour
             _selectedNode.Select(false);
         }
 
-		node.Kill();
-
         DetailsPanel.SetNode(node);
         node.Select(true);
 
