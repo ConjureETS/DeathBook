@@ -1340,79 +1340,79 @@ Prefab:
       objectReference: {fileID: 1197925315}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.awarenessChange.friendRatio.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
-      propertyPath: strategy.awarenessChange.friendRatio.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
-      propertyPath: strategy.awarenessChange.friendRatio.z
       value: .200000003
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
+      propertyPath: strategy.awarenessChange.friendRatio.y
+      value: .800000012
+      objectReference: {fileID: 0}
+    - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
+      propertyPath: strategy.awarenessChange.friendRatio.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.awarenessChange.lastDeath.x
-      value: 1
+      value: .600000024
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.deathNoticing.popularity.x
-      value: .100000001
+      value: .75
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.deathNoticing.importance.x
-      value: .100000001
+      value: .75
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.deathNoticing.numFriends.x
-      value: .100000001
+      value: .75
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.deathNoticing.awareness.x
-      value: .100000001
+      value: .75
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.chanceToPost.popularity.x
-      value: .100000001
+      value: .699999988
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.chanceToPost.importance.x
-      value: .100000001
+      value: .699999988
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.chanceToPost.frequency.x
-      value: .100000001
+      value: .699999988
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.awarenessChange.lastDeath.y
-      value: 0
+      value: .400000006
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.deathNoticing.popularity.y
-      value: .899999976
+      value: .25
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.deathNoticing.importance.y
-      value: .899999976
+      value: .25
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.deathNoticing.numFriends.y
-      value: .899999976
+      value: .25
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.deathNoticing.awareness.y
-      value: .899999976
+      value: .25
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.chanceToPost.popularity.y
-      value: .899999976
+      value: .300000012
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.chanceToPost.importance.y
-      value: .899999976
+      value: .300000012
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.chanceToPost.frequency.y
-      value: .899999976
+      value: .300000012
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.awarenessChange.lastDeath.z
@@ -1457,6 +1457,14 @@ Prefab:
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: levelOptions.FriendshipLikeliness
       value: .600000024
+      objectReference: {fileID: 0}
+    - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
+      propertyPath: strategy.awarenessChange.modifier
+      value: .300000012
+      objectReference: {fileID: 0}
+    - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
+      propertyPath: strategy.awarenessChange.maxDeathDuration
+      value: 20160
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
