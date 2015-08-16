@@ -1448,15 +1448,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: levelOptions.NumPeople
-      value: 10
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: levelOptions.AvgNumFriends
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: levelOptions.FriendshipLikeliness
-      value: 1
+      value: .600000024
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
