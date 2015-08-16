@@ -141,12 +141,13 @@ namespace DeathBook.Model
 
 			bool isFemale = Random.value <= 0.5;
 			
+            /*
 			string fName = "Fifi"; //isFemale ? NameGenerator.GetFemaleName() : NameGenerator.GetMaleName();
-			string lName = "Brindacier"; //NameGenerator.GetLastName();
+			string lName = "Brindacier"; //NameGenerator.GetLastName();*/
 
-			Sprite pic = isFemale ? PictureGenerator.GetFemalePicture() : PictureGenerator.GetMalePicture();
+            var generatedPerson = isFemale ? PersonGenerator.GetGeneratedFemale() : PersonGenerator.GetGeneratedMale();
 
-			Person p = new Person(id, fName, lName, pos, connectionTime, disconnectionTime, freq, pic);
+            Person p = new Person(id, generatedPerson.FirstName, generatedPerson.LastName, pos, connectionTime, disconnectionTime, freq, generatedPerson.Picture);
 
 			return p;
 		}
