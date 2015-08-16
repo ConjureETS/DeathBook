@@ -7,6 +7,7 @@ public class NetworkingSphere : MonoBehaviour
 {
 	public GameObjectsOptions gameObjects = new GameObjectsOptions();
 	public LevelOptions levelOptions = new LevelOptions();
+	public GameStrategy strategy = new GameStrategy();
 	private NetworkDisconnection sphere;
 
 	[System.Serializable]
@@ -47,8 +48,7 @@ public class NetworkingSphere : MonoBehaviour
     void Awake()
     {
 		manager = LevelManager.Instance;
-		manager.NewLevel(levelOptions.NumPeople, levelOptions.AvgNumFriends, levelOptions.FriendshipLikeliness, levelOptions.SphereRadius);
-		Level lvl = manager.GameLevel;
+		Level lvl = manager.NewLevel(levelOptions.NumPeople, levelOptions.AvgNumFriends, levelOptions.FriendshipLikeliness, levelOptions.SphereRadius, strategy);
 
         InstantiateNodes(lvl);
         AssignLinks(lvl);
@@ -59,6 +59,7 @@ public class NetworkingSphere : MonoBehaviour
 	{
 		int time = manager.GameLevel.DayTime;
 		GUI.Button(new Rect(50, 50, 100, 40), Utils.GetTimeString(time));
+		GUI.Button(new Rect(160, 50, 100, 40), manager.GameLevel.Awareness + "");
 	}
 
     void Update()
@@ -149,15 +150,18 @@ public class NetworkingSphere : MonoBehaviour
 
     private void OnNodeClicked(PersonNode node)
     {
+        rb.angularVelocity = Vector3.zero;
+
         if (_selectedNode != null)
         {
             _selectedNode.Select(false);
         }
 
-        if (_selectedNode != node)
+        if (!_isRotatingTowardsNode || node != _selectedNode)
         {
             FocusOnNode(node);
         }
+        
 
         /*
         if (_timeSinceLastClick < 0.5f && node == _selectedNode)

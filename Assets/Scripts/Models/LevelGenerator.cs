@@ -13,7 +13,7 @@ namespace DeathBook.Model
 		private const float minConnTime = 3;
 		private const float maxConnTime = 20;
 
-		public Level GenerateLevel(int numPeople, int avgFriends, float probability, float radius)
+		public Level GenerateLevel(int numPeople, int avgFriends, float probability, float radius, GameStrategy strategy)
 		{
 			this.numPeople = numPeople;
 			this.avgConnections = avgFriends;
@@ -23,7 +23,7 @@ namespace DeathBook.Model
 			List<Person> people = CreatePeople();
 			List<FriendshipLink> friendships = CreateFriendships(people);
 
-			return new Level(people, friendships);
+			return new Level(people, friendships, strategy);
 		}
 
 		private List<Person> CreatePeople()
@@ -141,12 +141,13 @@ namespace DeathBook.Model
 
 			bool isFemale = Random.value <= 0.5;
 			
+            /*
 			string fName = "Fifi"; //isFemale ? NameGenerator.GetFemaleName() : NameGenerator.GetMaleName();
-			string lName = "Brindacier"; //NameGenerator.GetLastName();
+			string lName = "Brindacier"; //NameGenerator.GetLastName();*/
 
-			Sprite pic = isFemale ? PictureGenerator.GetFemalePicture() : PictureGenerator.GetMalePicture();
+            var generatedPerson = isFemale ? PersonGenerator.GetGeneratedFemale() : PersonGenerator.GetGeneratedMale();
 
-			Person p = new Person(id, fName, lName, pos, connectionTime, disconnectionTime, freq, pic);
+            Person p = new Person(id, generatedPerson.FirstName, generatedPerson.LastName, pos, connectionTime, disconnectionTime, freq, generatedPerson.Picture);
 
 			return p;
 		}

@@ -11,8 +11,6 @@ public class PersonDetailsPanel : MonoBehaviour, IObserver
     public Text Name;
     public Text FriendsTitle;
     public GameObject FriendsPanel;
-    public Button KillButton;
-    public Button WatchButton;
     public Button XButton;
     public GameObject Container;
     public RatioProgression AwarenessBar;
@@ -54,9 +52,6 @@ public class PersonDetailsPanel : MonoBehaviour, IObserver
     {
         Name.text = _model.Name;
 
-        KillButton.gameObject.SetActive(_model.Alive);
-        WatchButton.gameObject.SetActive(_model.Alive);
-
         AwarenessBar.SetCompletedRatio(_model.AwarenessLevel);
 
         foreach (Transform picture in FriendsPanel.transform)
@@ -65,28 +60,37 @@ public class PersonDetailsPanel : MonoBehaviour, IObserver
         }
 
         ProfilePicture.sprite = _model.Picture;
-        
-        RectTransform panelTrans = FriendsPanel.GetComponent<RectTransform>();
-
-        panelTrans.anchorMin = new Vector2(0f, -0.3125f * _model.FriendList.Count);
-        panelTrans.anchorMax = new Vector2(1f, 1f);
-        panelTrans.offsetMin = Vector2.zero;
-        panelTrans.offsetMax = Vector2.zero;
-
-        float height = 1f / _model.FriendList.Count;
 
         // We copy the list so we can sort it without affecting the model data
         List<Friendship> list = new List<Friendship>(_model.FriendList);
         list.Sort();
 
-        FriendsTitle.text = string.Concat("Friends (", list.Count, ")");
+        int aliveCount = list.Count - _model.DeadFriendList.Count;
+
+        RectTransform panelTrans = FriendsPanel.GetComponent<RectTransform>();
+
+        panelTrans.anchorMin = new Vector2(0f, 1f - 0.4f * aliveCount);
+        panelTrans.anchorMax = new Vector2(1f, 1f);
+        panelTrans.offsetMin = Vector2.zero;
+        panelTrans.offsetMax = Vector2.zero;
+
+        float height = 1f / aliveCount;
+
+        FriendsTitle.text = string.Concat("Friends (", aliveCount, ")");
+
+        int index = 0;
 
         for (int i = 0; i < list.Count; i++)
         {
             Person friend = list[i].Friend;
+            
+            if (!friend.Alive)
+            {
+                continue;
+            }
 
-            float minY = 1f - (height - 0.01f) * (i + 1) - i * 0.01f;
-            float maxY = 1f - height * i;
+            float minY = 1f - (height - 0.01f) * (index + 1) - index * 0.01f;
+            float maxY = 1f - height * index;
 
             // Friend picture
             UIFriendPicture friendPicture = Instantiate(FriendPicture) as UIFriendPicture;
@@ -111,6 +115,8 @@ public class PersonDetailsPanel : MonoBehaviour, IObserver
             barRectTrans.anchorMax = new Vector2(1f, maxY);
             barRectTrans.offsetMin = Vector2.zero;
             barRectTrans.offsetMax = Vector2.zero;
+
+            ++index;
         }
     }
 
@@ -118,10 +124,5 @@ public class PersonDetailsPanel : MonoBehaviour, IObserver
     {
         Container.SetActive(false);
         _node.Select(false);
-    }
-
-    public void KillNode()
-    {
-        _node.Kill();
     }
 }

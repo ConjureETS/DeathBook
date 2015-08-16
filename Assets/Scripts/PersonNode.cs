@@ -20,7 +20,10 @@ public class PersonNode : MonoBehaviour, IObserver
     public Color EndColor = Color.red;
 
     public Renderer internQuad;
-    public Renderer xQuad;
+    public float KillHoldDuration = 2f;
+    public RatioProgression xMarkLeft;
+    public RatioProgression xMarkRight;
+    public Renderer bloodSplatter;
 
     private List<Link> _links;
     private bool _highlighted = false;
@@ -29,6 +32,8 @@ public class PersonNode : MonoBehaviour, IObserver
     private Person _model;
     private Renderer _renderer;
     private Transform _transform;
+
+    private float _holdDuration;
 
     public Person Model
     {
@@ -99,8 +104,47 @@ public class PersonNode : MonoBehaviour, IObserver
 
 	public void Kill()
 	{
-		_model.Kill();
+        if (_model.Kill())
+        {
+            StartCoroutine(SplashBlood());
+        }
 	}
+
+    private IEnumerator SplashBlood()
+    {
+        bloodSplatter.gameObject.SetActive(true);
+
+        float ratio = 0f;
+
+        Vector3 finalScale = Vector3.one * 1.7f;
+
+        while (ratio < 1f)
+        {
+            ratio += Time.deltaTime / 0.4f;
+
+            bloodSplatter.transform.localScale = Vector3.Lerp(Vector3.zero, finalScale, ratio);
+
+            yield return null;
+        }
+
+        ratio = 0f;
+
+        Color initialColor = bloodSplatter.material.color;
+        Color finalColor = initialColor;
+        finalColor.a = 0f;
+
+        // Fade out
+        while (ratio < 1f)
+        {
+            ratio += Time.deltaTime / 1f;
+
+            bloodSplatter.material.color = Color.Lerp(initialColor, finalColor, ratio);
+
+            yield return null;
+        }
+
+        bloodSplatter.gameObject.SetActive(false);
+    }
 
     public void Notify()
     {
@@ -113,12 +157,10 @@ public class PersonNode : MonoBehaviour, IObserver
         //If dead -> set offline until all friends are aware, then add a big red X to profile pic
         if (_model.Alive)
         {
-            xQuad.enabled = false;
             SetColors();
         }
         else
         {
-            xQuad.enabled = true;
             gameObject.GetComponent<Renderer>().material.color = new Color32(50, 50, 50, 1);
             UpdateLinks(false);
         }
@@ -168,10 +210,38 @@ public class PersonNode : MonoBehaviour, IObserver
 
     void OnMouseDown()
     {
+        _holdDuration = 0f;
+
         // The sphere should be subscribed to this event and update the data accordingly
         if (OnClicked != null)
         {
             OnClicked(this);
+        }
+    }
+
+    void OnMouseDrag()
+    {
+        if (!_model.Alive) return;
+
+        Debug.Log(_model.Alive);
+
+        _holdDuration += Time.deltaTime;
+        
+        xMarkLeft.SetCompletedRatio(Mathf.Clamp(_holdDuration - 0.025f, 0f, 1f));
+        xMarkRight.SetCompletedRatio(Mathf.Clamp(_holdDuration - 1.025f, 0f, 1f));
+
+        if (_holdDuration >= KillHoldDuration)
+        {
+            Kill();
+        }
+    }
+
+    void OnMouseUp()
+    {
+        if (_model.Alive)
+        {
+            xMarkLeft.SetCompletedRatio(0f);
+            xMarkRight.SetCompletedRatio(0f);
         }
     }
 }
