@@ -96,6 +96,23 @@ MonoBehaviour:
     AvgNumFriends: 8
     FriendshipLikeliness: .600000024
     SphereRadius: 7
+  strategy:
+    awarenessChange:
+      friendRatio: {x: .200000003, y: .800000012, z: 1.5}
+      lastDeath: {x: .600000024, y: .400000006, z: 1}
+      maxDeathDuration: 10080
+      modifier: .219999999
+    deathNoticing:
+      popularity: {x: .600000024, y: .400000006, z: 1}
+      importance: {x: .75, y: .25, z: 1}
+      numFriends: {x: .800000012, y: .200000003, z: 1}
+      awareness: {x: .800000012, y: .200000003, z: 1}
+      modifier: .0299999993
+    chanceToPost:
+      popularity: {x: .699999988, y: .300000012, z: 1}
+      importance: {x: .699999988, y: .300000012, z: 1}
+      frequency: {x: .699999988, y: .300000012, z: 1}
+      modifier: .100000001
   rotationSpeed: .699999988
   torqueForce: 1
   DetailsPanel: {fileID: 0}
