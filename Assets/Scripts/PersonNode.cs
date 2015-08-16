@@ -20,7 +20,9 @@ public class PersonNode : MonoBehaviour, IObserver
     public Color EndColor = Color.red;
 
     public Renderer internQuad;
-    public Renderer xQuad;
+    public float KillHoldDuration = 2f;
+    public RatioProgression xMarkLeft;
+    public RatioProgression xMarkRight;
 
     private List<Link> _links;
     private bool _highlighted = false;
@@ -29,6 +31,8 @@ public class PersonNode : MonoBehaviour, IObserver
     private Person _model;
     private Renderer _renderer;
     private Transform _transform;
+
+    private float _holdDuration;
 
     public Person Model
     {
@@ -113,12 +117,10 @@ public class PersonNode : MonoBehaviour, IObserver
         //If dead -> set offline until all friends are aware, then add a big red X to profile pic
         if (_model.Alive)
         {
-            xQuad.enabled = false;
             SetColors();
         }
         else
         {
-            xQuad.enabled = true;
             gameObject.GetComponent<Renderer>().material.color = new Color32(50, 50, 50, 1);
             UpdateLinks(false);
         }
@@ -168,10 +170,38 @@ public class PersonNode : MonoBehaviour, IObserver
 
     void OnMouseDown()
     {
+        _holdDuration = 0f;
+
         // The sphere should be subscribed to this event and update the data accordingly
         if (OnClicked != null)
         {
             OnClicked(this);
+        }
+    }
+
+    void OnMouseDrag()
+    {
+        if (!_model.Alive) return;
+
+        Debug.Log(_model.Alive);
+
+        _holdDuration += Time.deltaTime;
+        
+        xMarkLeft.SetCompletedRatio(Mathf.Clamp(_holdDuration - 0.025f, 0f, 1f));
+        xMarkRight.SetCompletedRatio(Mathf.Clamp(_holdDuration - 1.025f, 0f, 1f));
+
+        if (_holdDuration >= KillHoldDuration)
+        {
+            Kill();
+        }
+    }
+
+    void OnMouseUp()
+    {
+        if (_model.Alive)
+        {
+            xMarkLeft.SetCompletedRatio(0f);
+            xMarkRight.SetCompletedRatio(0f);
         }
     }
 }
