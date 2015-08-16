@@ -15,9 +15,9 @@ namespace DeathBook.Model
 
 		private LevelManager() {}
 
-		public void NewLevel(int numPeople, int avgFriends, float probability, float radius)
+		public Level NewLevel(int numPeople, int avgFriends, float probability, float radius, GameStrategy strategy)
 		{
-			level = gen.GenerateLevel(numPeople, avgFriends, probability, radius);
+			return level = gen.GenerateLevel(numPeople, avgFriends, probability, radius, strategy);
 		}
 	}
 }
