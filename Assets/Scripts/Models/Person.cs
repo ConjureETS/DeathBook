@@ -1,92 +1,124 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+using DeathBook.Util;
 
 namespace DeathBook.Model
 {
-	public class Person : Observable
+	public class Person : Observable, Updatable
 	{
+        public Action OnSelected;
+
 		public int id;
-		private string name;
-		private List<Friendship> friendList = new List<Friendship>();
-		public Vector3 initialPosition;
-		public int numFriends;
+		public int Id { get { return id; } }
+
+		private string firstName;
+		private string lastName;
+		public string Name { get { return firstName + " " + lastName; } }
+		public string FirstName { get { return firstName; } }
+
+		private Vector3 initialPosition;
+		public Vector3 InitialPosition { get { return initialPosition; } }
+
+		private List<Friendship> friendsList = new List<Friendship>();
+		public List<Friendship> FriendList { get { return friendsList; } }
+		private List<Friendship> deadFriendsList = new List<Friendship>();
+		public List<Friendship> DeadFriendList { get { return deadFriendsList; } }
+
+		private int numAliveFriends = 0;
+		private int numDeadFriends = 0;
+		private int friendCount = 0;
+        public int FriendCount { get { return friendCount; } }
+
 		private int timeBetweenPosts; // f = 1/T;
-		private int connectionTime;
-		private int disconnectionTime;
-		private int awarenessLevel;
-		private bool alive;
+		public int TimeBetweenPosts { get { return timeBetweenPosts; } }
 
-		private int happiness;
-		private bool connected;
+		private float connectionTime;
+		public float ConnectionTime { get { return connectionTime; } }
 
-        private Sprite picture;
+		private float disconnectionTime;
+		public float DisconnectionTime { get { return disconnectionTime; } }
 
-		//private Node node;
+		private float awarenessLevel = 0; //on a scale from 0 to 1
+		public float AwarenessLevel { get { return awarenessLevel; } }
 
-        public string Name
-        {
-            get { return name; }
-        }
+		private bool alive = true;
+		public bool Alive { get { return alive; } }
 
-        public bool Alive
-        {
-            get { return alive; }
-        }
+		private bool online = true;
+		public bool Online { get { return online; } }
+		
+		private Sprite picture;
+		public Sprite Picture { get { return picture; } }
 
-        public int AwarenessLevel
-        {
-            get { return awarenessLevel; }
-        }
 
-        public List<Friendship> FriendList
-        {
-            get { return friendList; }
-        }
-
-        public int FriendsCount
-        {
-            get { return numFriends; }
-        }
-
-        public bool Online
-        {
-            get { return connected; }
-        }
-
-        public Sprite Picture
-        {
-            get { return picture; }
-        }
-
-		public Person(int id, float x, float y, float z)
+		public Person(int id, Vector3 pos)
 		{
 			this.id = id;
-			initialPosition = new Vector3(x, y, z);
-            alive = true;
+			initialPosition = pos;
 
-            // For testing purposes
-            picture = UnityEngine.Random.Range(0, 2) == 0 ? PictureGenerator.GetFemalePicture() : PictureGenerator.GetMalePicture();
+            // TODO Use names from db
+			firstName = "Mark";
+			lastName = "Zuckerberg";
 
-            // Temporary
-            name = String.Format("Firstname{0} Lastname{0}", id);
+			// For testing purposes
+			picture = UnityEngine.Random.Range(0, 2) == 0 ? PictureGenerator.GetFemalePicture() : PictureGenerator.GetMalePicture();
 		}
 
 		public void AddFriendship(Friendship f)
 		{
-			friendList.Add(f);
-			numFriends++;
+			friendsList.Add(f);
+			numAliveFriends++;
+			friendCount++;
 		}
 
-		private bool isConnected(int time)
+		public void NotifyFriendWasKilled(Friendship f)
 		{
-			return disconnectionTime > time && time > connectionTime;
+			//Debug.Log("I am " + id + " and my friend " + f.Friend.Id + " was killed");
+			numAliveFriends--;
+			numDeadFriends++;
+			deadFriendsList.Add(f);
 		}
 
-		private int calculateWeight()
+		public void Kill()
 		{
-			//friendCount * ____ + 1/timeBetweenPosts + }
-			return 0;
+			//Debug.Log("Person " + id + " died!");
+			alive = false;
+			foreach (Friendship f in friendsList)
+				f.Friend.NotifyFriendWasKilled(f.Other);
+			NotifyObservers();
 		}
+
+		public void NoticeDeath(Friendship f)
+		{
+			//TODO apply more rules here
+			awarenessLevel = Mathf.Min(AwarenessLevel + 0.2f, 1f);
+			//Debug.Log("I am " + id + " and I know my friend " + f.Friend.Id + " was killed.. " + AwarenessLevel);
+			//TODO remove from dead friends list to accelerate
+			NotifyObservers();
+		}
+
+		public void Update(float deltaTime)
+		{
+			//TODO Update if connected
+			int time = LevelManager.Instance.GameLevel.GameTime;
+
+
+
+			//The following actions are only performed if user is online
+			if (!Online)
+				return;
+
+			foreach (Friendship f in deadFriendsList)
+				f.Update(deltaTime);
+		}
+
+        public void SelectNode()
+        {
+            if (OnSelected != null)
+            {
+                OnSelected();
+            }
+        }
 	}
 }

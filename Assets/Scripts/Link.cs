@@ -1,11 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DeathBook.Util;
+using DeathBook.Model;
 
 [RequireComponent(typeof(LineRenderer))]
-public class FriendshipLink : MonoBehaviour
+public class Link : MonoBehaviour, IObserver
 {
-    public Color HighlightedColor = new Color(1f, 1f, 1f, 0.5f);
+	private float highlightAlpha = 0.8f;
+	private float defaultAlpha = 0.5f;
 
+	private Color currentDefaultColor;
+	private Color currentHighlightColor;
+
+	private static float defaultScale = 0.03f;
+	private float hightlightScale = 0.2f;
+
+	private bool isHighlighted = false;
+	
     [SerializeField]
     private Transform StartPoint;
 
@@ -16,16 +27,28 @@ public class FriendshipLink : MonoBehaviour
     private LineRenderer BeamLine;
     //public ParticleSystem BeamParticles;
 
-    [SerializeField]
     private Transform StartObject;
-
-    [SerializeField]
     private Transform EndObject;
+
+	private FriendshipLink model;
+	public FriendshipLink Model
+	{
+		get { return model; }
+		set
+		{
+			model = value;
+			model.Subscribe(this);
+
+			//Make it between 0.1 and 0.4
+			GetColors(Model.Awareness);
+			hightlightScale = Model.Importance * 0.3f + 0.1f;
+			Highlight(false);
+		}
+	}
 
     private float LIFETIME_RATIO = 0.025f;
 
     private Renderer _renderer;
-    private Color _defaultColor;
 
     void Awake()
     {
@@ -36,14 +59,21 @@ public class FriendshipLink : MonoBehaviour
 
         _renderer.material = Instantiate(_renderer.material);
 
-        _defaultColor = _renderer.material.GetColor("_TintColor");
+        //_defaultColor = _renderer.material.GetColor("_TintColor");
 
         //Activate(false);
     }
 
+	public void Notify()
+	{
+		GetColors(Model.Awareness);
+		UpdateBeam();
+		//TODO SR
+	}
+
     void Update()
     {
-        UpdateVisualEffects();
+		UpdateVisualEffects();
     }
 
     public void Activate(bool state)
@@ -79,10 +109,35 @@ public class FriendshipLink : MonoBehaviour
         EndObject = destination.transform;
     }
 
-    public void Highlight(bool state, float weight)
+    public void Highlight(bool state)
     {
-        // For now, the weight does nothing but it should eventually influence the intensity and size of the link
-
-        _renderer.material.SetColor("_TintColor", state ? HighlightedColor : _defaultColor);
+; isHighlighted = state;
+		UpdateBeam();
     }
+
+	private void GetColors(float level)
+	{
+		//If level is 0.0, green    [0,1,0].
+		//If level is 0.5, yellow [1,1,0].
+		//If level is 1.0, red      [1,0,0].
+
+		float r = 1f;
+		float g = 1f;
+
+		if (level < 0.5f)
+			r = Mathf.Lerp(0, 1, level*2);
+		else
+			g = Mathf.Lerp(1, 0, level * 2 - 1);
+
+		currentDefaultColor = new Color(r, g, 0f, defaultAlpha);
+		currentHighlightColor = new Color(r, g, 0f, highlightAlpha);
+	}
+
+	private void UpdateBeam()
+	{
+		float width = isHighlighted ? hightlightScale : defaultScale;
+		BeamLine.SetWidth(width, width);
+		
+		_renderer.material.SetColor("_TintColor", isHighlighted ? currentHighlightColor : currentDefaultColor);
+	}
 }

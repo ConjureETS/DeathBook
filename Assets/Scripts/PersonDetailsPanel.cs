@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using DeathBook.Model;
+using DeathBook.Util;
 
 public class PersonDetailsPanel : MonoBehaviour, IObserver
 {
@@ -13,7 +14,7 @@ public class PersonDetailsPanel : MonoBehaviour, IObserver
     public Button XButton;
     public GameObject Container;
 
-    public Image UIFriendPicture;
+    public UIFriendPicture FriendPicture;
 
     private PersonNode _node;
     private Person _model;
@@ -49,6 +50,9 @@ public class PersonDetailsPanel : MonoBehaviour, IObserver
     {
         Name.text = _model.Name;
 
+        KillButton.gameObject.SetActive(_model.Alive);
+        WatchButton.gameObject.SetActive(_model.Alive);
+
         foreach (Transform picture in FriendsPanel.transform)
         {
             Destroy(picture.gameObject);
@@ -67,17 +71,21 @@ public class PersonDetailsPanel : MonoBehaviour, IObserver
 
         for (int i = 0; i < _model.FriendList.Count; i++)
         {
-            Person friend = _model.FriendList[i].friend1 == _model ? _model.FriendList[i].friend2 : _model.FriendList[i].friend1;
+            Person friend = _model.FriendList[i].Friend;
 
-            Image friendPicture = Instantiate(UIFriendPicture) as Image;
+            UIFriendPicture friendPicture = Instantiate(FriendPicture) as UIFriendPicture;
 
-            friendPicture.sprite = friend.Picture;
+            friendPicture.Model = friend;
 
-            friendPicture.transform.SetParent(FriendsPanel.transform);
-            friendPicture.rectTransform.anchorMin = new Vector2(0.022f, 1f - (height - 0.01f) * (i + 1) - i * 0.01f);
-            friendPicture.rectTransform.anchorMax = new Vector2(0.26f, (1f - height * i));
-            friendPicture.rectTransform.offsetMin = Vector2.zero;
-            friendPicture.rectTransform.offsetMax = Vector2.zero;
+            Image picture = friendPicture.Picture;
+
+            picture.sprite = friend.Picture;
+
+            picture.transform.SetParent(FriendsPanel.transform);
+            picture.rectTransform.anchorMin = new Vector2(0.022f, 1f - (height - 0.01f) * (i + 1) - i * 0.01f);
+            picture.rectTransform.anchorMax = new Vector2(0.26f, (1f - height * i));
+            picture.rectTransform.offsetMin = Vector2.zero;
+            picture.rectTransform.offsetMax = Vector2.zero;
         }
     }
 
@@ -85,5 +93,10 @@ public class PersonDetailsPanel : MonoBehaviour, IObserver
     {
         Container.SetActive(false);
         _node.Select(false);
+    }
+
+    public void KillNode()
+    {
+        _node.Kill();
     }
 }

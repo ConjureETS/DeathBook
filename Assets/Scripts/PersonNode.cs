@@ -2,11 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using DeathBook.Model;
+using DeathBook.Util;
 using System;
 
 [RequireComponent(typeof(Collider))]
 public class PersonNode : MonoBehaviour, IObserver
 {
+	private const float UpdateFrequency = 0.5f;
+	private float time = 0;
+
     public Action<PersonNode> OnClicked;
 
     public Color SelectedColor = Color.blue;
@@ -18,13 +22,14 @@ public class PersonNode : MonoBehaviour, IObserver
     public Renderer internQuad;
     public Renderer xQuad;
 
-    private List<FriendshipLink> _links;
+    private List<Link> _links;
     private bool _highlighted = false;
     private bool _selected = false;
 
     private Person _model;
     private Renderer _renderer;
     private Transform _transform;
+
 
     public Person Model
     {
@@ -33,6 +38,7 @@ public class PersonNode : MonoBehaviour, IObserver
         {
             _model = value;
             _model.Subscribe(this);
+            _model.OnSelected += () => { OnClicked(this); };
             UpdateInfo();
             SetProfilePicture();
         }
@@ -46,18 +52,25 @@ public class PersonNode : MonoBehaviour, IObserver
 
     void Awake()
     {
-        _links = new List<FriendshipLink>();
+        _links = new List<Link>();
         _renderer = GetComponent<Renderer>();
         _transform = GetComponent<Transform>();
     }
 
     void Update()
     {
+		time += Time.deltaTime;
+		if (time > UpdateFrequency)
+		{
+			_model.Update(time);
+			time = 0;
+		}
+
         // Find another way to do it if it lags to much
         _transform.LookAt(new Vector3(_transform.position.x, _transform.position.y, _transform.position.z + 1));
     }
 
-    public void AddLink(FriendshipLink link)
+    public void AddLink(Link link)
     {
         _links.Add(link);
     }
@@ -77,16 +90,22 @@ public class PersonNode : MonoBehaviour, IObserver
         }
     }
 
-    private void UpdateLinks(bool state)
+    private void UpdateLinks(bool isHighlighted)
     {
-        foreach (FriendshipLink link in _links)
+        foreach (Link link in _links)
         {
-            link.Highlight(state, 1f);
+            link.Highlight(isHighlighted);
         }
     }
 
+	public void Kill()
+	{
+		_model.Kill();
+	}
+
     public void Notify()
     {
+		//Debug.Log("Received notification! " + Model.AwarenessLevel);
         UpdateInfo();
     }
 
@@ -155,7 +174,5 @@ public class PersonNode : MonoBehaviour, IObserver
         {
             OnClicked(this);
         }
-
-        Debug.Log("clicked");
     }
 }
