@@ -23,7 +23,9 @@ public class WatchArea : MonoBehaviour, IObserver
 
     private void UpdateBar()
     {
-        AwarenessBar.SetCompletedRatio(LevelManager.Instance.GameLevel.Awareness);
-        Percentage.text = (int)Mathf.Clamp((LevelManager.Instance.GameLevel.Awareness * 100f / 0.6f), 0f, 100f) + "%";
+        float adjustedRatio = Mathf.Clamp((LevelManager.Instance.GameLevel.Awareness / 0.6f), 0f, 1f);
+
+        AwarenessBar.SetCompletedRatio(adjustedRatio);
+        Percentage.text = (int)(adjustedRatio * 100f) + "%";
     }
 }
