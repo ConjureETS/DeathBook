@@ -39,6 +39,9 @@ namespace DeathBook.Model
 		private float awarenessLevel = 0; //on a scale from 0 to 1
 		public float AwarenessLevel { get { return awarenessLevel; } }
 
+		private int lastFriendDeath = 0;
+		public int LastFriendDeath { get { return lastFriendDeath; } }
+
 		private bool alive = true;
 		public bool Alive { get { return alive; } }
 
@@ -97,10 +100,21 @@ namespace DeathBook.Model
 
 		public void NoticeDeath(Friendship f)
 		{
+			int deathTime = LevelManager.Instance.GameLevel.GameTime;
+			float lastFriendDeathMalus = 0;
+			//Last friend death
+			if (numDeadFriends > 0)
+			{
+				//TODO malus
+
+				//Mathf.Clamp
+				//lastFriendDeathMalus = deathTime - lastFriendDeath
+			}
+			lastFriendDeath = deathTime;
+
 			//TODO apply more rules here
 			awarenessLevel = Mathf.Min(AwarenessLevel + 0.2f, 1f);
 			Debug.Log("I am " + id + " and I know my friend " + f.Friend.Id + " was killed.. " + AwarenessLevel);
-			//TODO remove from dead friends list to accelerate
 			NotifyObservers();
 		}
 
