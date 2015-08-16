@@ -27,10 +27,41 @@ namespace DeathBook.Model
 		private float globalAwareness; //on a scale from 0 to 1
 		public float GlobalAwareness { get { return globalAwareness; } }
 
-		public Level(List<Person> people, List<FriendshipLink> friendships)
+		private GameStrategy strategy = null;
+		public GameStrategy Strategy { get { return strategy; } }
+
+		private int numAlive;
+		public int NumAlive { get { return numAlive; } set { numAlive = value; NotifyObservers(); } }
+
+		private int numDead;
+		public int NumDead { get { return numDead; } set { numDead = value; NotifyObservers(); } }
+
+		private float awareness;
+		public float Awareness { get { return awareness; } set { awareness = value; NotifyObservers(); } }
+
+
+		public Level(List<Person> people, List<FriendshipLink> friendships, GameStrategy strategy)
 		{
 			this.people = people;
 			this.friendships = friendships;
+			this.strategy = strategy;
+			this.numAlive = people.Count;
+			this.numDead = 0;
+			this.awareness = 0;
+		}
+
+		public void RegisterKill(Person p)
+		{
+			numDead++;
+			numAlive--;
+			Awareness = (Awareness * (NumAlive + 1) - p.AwarenessLevel) / NumAlive;
+			Debug.Log("Killed - " + p.AwarenessLevel + " nK = " + numAlive);
+		}
+
+		public void AddAwareness(float addition)
+		{
+			Awareness += addition / NumAlive;
+			Debug.Log("Added - " + addition + " nK = " + numAlive);
 		}
 
 		public void Update(float deltaTime)
@@ -42,8 +73,6 @@ namespace DeathBook.Model
 				lastHour = hour;
 				NotifyObservers();
 			}
-
-			//TODO Global awareness - start trends
 		}
 	}
 }

@@ -40,23 +40,15 @@ namespace DeathBook.Model
 
 			//This function is only called when friend is dead
 			//awareness = Mathf.Min(awareness + deltaTime * CalculateWeight(), 1);
+
+			link.Awareness += Self.Strategy.GetDeathNoticing(1f /*Friend.Popularity*/, Link.Importance, Self.FriendCount, Self.AwarenessLevel);
+
 			link.Awareness = Mathf.Min(link.Awareness + deltaTime * 0.1f, 1f);
 			if (link.Awareness >= 1f)
 			{
 				self.NoticeDeath(this);
 				noticedDeath = true;
 			}
-		}
-
-		//returns a number between 0 and 1
-		private float CalculateWeight()
-		{
-			float weight = 0;
-
-			weight += link.Importance;
-			//weight += friend.TimeBetweenPosts;
-
-			return weight * 0.1f;
 		}
 
         public int CompareTo(Friendship other)
@@ -74,10 +66,5 @@ namespace DeathBook.Model
 
             return value;
         }
-
-		/*internal enum Knowledge
-		{
-			Alive, Doubt, Dead
-		}*/
 	}
 }

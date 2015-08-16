@@ -37,7 +37,17 @@ namespace DeathBook.Model
 		public int DisconnectionTime { get { return disconnectionTime; } }
 
 		private float awarenessLevel = 0; //on a scale from 0 to 1
-		public float AwarenessLevel { get { return awarenessLevel; } }
+		public float AwarenessLevel { get { return awarenessLevel; }
+			set
+			{
+				float change = value - awarenessLevel;
+				awarenessLevel = value;
+				LevelManager.Instance.GameLevel.AddAwareness(change);
+			}
+		}
+
+		private int lastFriendDeath = 0;
+		public int LastFriendDeath { get { return lastFriendDeath; } }
 
 		private bool alive = true;
 		public bool Alive { get { return alive; } }
@@ -51,6 +61,17 @@ namespace DeathBook.Model
 		private Action onSelected;
 		public Action OnSelected {get {return onSelected;} set { onSelected = value; } }
 
+		private GameStrategy strategy;
+		public GameStrategy Strategy
+		{
+			get
+			{
+				if (strategy == null)
+					strategy = LevelManager.Instance.GameLevel.Strategy;
+				return strategy;
+			}
+		}
+
 		public Person(int id, string fName, string lName, Vector3 pos, int conn, int disconn, float freq, Sprite pic)
 		{
 			this.id = id;
@@ -59,7 +80,7 @@ namespace DeathBook.Model
 			this.initialPosition = pos;
 			this.connectionTime = conn;
 			this.disconnectionTime = disconn;
-			Debug.Log("I am " + id + " and I connect at " + Utils.GetTimeString(connectionTime) + " until " + Utils.GetTimeString(disconnectionTime));
+			//Debug.Log("I am " + id + " and I connect at " + Utils.GetTimeString(connectionTime) + " until " + Utils.GetTimeString(disconnectionTime));
 			this.postFrequency = freq;
 			this.picture = pic;
 
@@ -75,7 +96,7 @@ namespace DeathBook.Model
 
 		public void NotifyFriendWasKilled(Friendship f)
 		{
-			Debug.Log("I am " + id + " and my friend " + f.Friend.Id + " was killed");
+			//Debug.Log("I am " + id + " and my friend " + f.Friend.Id + " was killed");
 			numAliveFriends--;
 			numDeadFriends++;
 			deadFriendsList.Add(f);
@@ -86,22 +107,30 @@ namespace DeathBook.Model
 			if (Online)
 				return false;
 
-			Debug.Log("Person " + id + " died!");
+			//Debug.Log("Person " + id + " died!");
 			alive = false;
 			foreach (Friendship f in friendsList)
 				f.Other.NotifyFriendWasKilled();
 			NotifyObservers();
+
+			LevelManager.Instance.GameLevel.RegisterKill(this);
 
 			return true;
 		}
 
 		public void NoticeDeath(Friendship f)
 		{
-			//TODO apply more rules here
-			awarenessLevel = Mathf.Min(AwarenessLevel + 0.2f, 1f);
-			Debug.Log("I am " + id + " and I know my friend " + f.Friend.Id + " was killed.. " + AwarenessLevel);
-			//TODO remove from dead friends list to accelerate
+			int deathTime = LevelManager.Instance.GameLevel.GameTime;
+			int sinceLastDeath = numDeadFriends == 0 ? int.MaxValue/2 : deathTime - lastFriendDeath;
+
+			float strategyOutput = Strategy.GetAwarenessChange(numDeadFriends, numAliveFriends, sinceLastDeath);
+
+			AwarenessLevel = Mathf.Min(AwarenessLevel + strategyOutput, 1f);
+
 			NotifyObservers();
+
+			
+			//Debug.Log("I am " + id + " and I know my friend " + f.Friend.Id + " was killed.. " + strategyOutput);
 		}
 
 		//Time in hours
@@ -114,6 +143,9 @@ namespace DeathBook.Model
 
 		public void Update(float deltaTime)
 		{
+			if (!Alive)
+				return;
+
 			int time = LevelManager.Instance.GameLevel.DayTime;
 
 			bool isOnline = IsOnline(time);
