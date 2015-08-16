@@ -51,10 +51,11 @@ public class NetworkingSphere : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-	/*void OnGUI()
+	void OnGUI()
 	{
-		GUI.Button(new Rect(10, 100, 400, 40), manager.GameLevel.GameTime + "");
-	}*/
+		int time = manager.GameLevel.DayTime;
+		GUI.Button(new Rect(50, 50, 100, 40), Utils.GetTimeString(time));
+	}
 
     void Update()
     {

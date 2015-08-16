@@ -28,14 +28,13 @@ namespace DeathBook.Model
 		private int friendCount = 0;
         public int FriendCount { get { return friendCount; } }
 
-		private int timeBetweenPosts; // f = 1/T;
-		public int TimeBetweenPosts { get { return timeBetweenPosts; } }
+		private float postFrequency; //on a scale from 0 to 1
+		public float PostFrequency { get { return postFrequency; } }
 
-		private float connectionTime;
-		public float ConnectionTime { get { return connectionTime; } }
-
-		private float disconnectionTime;
-		public float DisconnectionTime { get { return disconnectionTime; } }
+		private int connectionTime;
+		public int ConnectionTime { get { return connectionTime; } }
+		private int disconnectionTime;
+		public int DisconnectionTime { get { return disconnectionTime; } }
 
 		private float awarenessLevel = 0; //on a scale from 0 to 1
 		public float AwarenessLevel { get { return awarenessLevel; } }
@@ -44,23 +43,25 @@ namespace DeathBook.Model
 		public bool Alive { get { return alive; } }
 
 		private bool online = true;
-		public bool Online { get { return online; } }
+		public bool Online { get { return online; } set { online = value; NotifyObservers(); } }
 		
 		private Sprite picture;
 		public Sprite Picture { get { return picture; } }
 
 
-		public Person(int id, Vector3 pos)
+		public Person(int id, string fName, string lName, Vector3 pos, int conn, int disconn, float freq, Sprite pic)
 		{
 			this.id = id;
-			initialPosition = pos;
+			this.firstName = fName;
+			this.lastName = lName;
+			this.initialPosition = pos;
+			this.connectionTime = conn;
+			this.disconnectionTime = disconn;
+			Debug.Log("I am " + id + " and I connect at " + Utils.GetTimeString(connectionTime) + " until " + Utils.GetTimeString(disconnectionTime));
+			this.postFrequency = freq;
+			this.picture = pic;
 
-            // TODO Use names from db
-			firstName = "Mark";
-			lastName = "Zuckerberg";
-
-			// For testing purposes
-			picture = UnityEngine.Random.Range(0, 2) == 0 ? PictureGenerator.GetFemalePicture() : PictureGenerator.GetMalePicture();
+			online = IsOnline(0);
 		}
 
 		public void AddFriendship(Friendship f)
@@ -78,13 +79,18 @@ namespace DeathBook.Model
 			deadFriendsList.Add(f);
 		}
 
-		public void Kill()
+		public bool Kill()
 		{
+			if (Online)
+				return false;
+
 			Debug.Log("Person " + id + " died!");
 			alive = false;
 			foreach (Friendship f in friendsList)
 				f.Friend.NotifyFriendWasKilled(f.Other);
 			NotifyObservers();
+
+			return true;
 		}
 
 		public void NoticeDeath(Friendship f)
@@ -96,12 +102,22 @@ namespace DeathBook.Model
 			NotifyObservers();
 		}
 
+		//Time in hours
+		private bool IsOnline(int time)
+		{
+			if (ConnectionTime < DisconnectionTime)
+				return (time > ConnectionTime && time < DisconnectionTime);
+			return !(time < ConnectionTime && time > DisconnectionTime);
+		}
+
 		public void Update(float deltaTime)
 		{
-			//TODO Update if connected
-			int time = LevelManager.Instance.GameLevel.GameTime;
+			int time = LevelManager.Instance.GameLevel.DayTime;
 
+			bool isOnline = IsOnline(time);
 
+			if (isOnline != Online)
+				Online = isOnline;
 
 			//The following actions are only performed if user is online
 			if (!Online)

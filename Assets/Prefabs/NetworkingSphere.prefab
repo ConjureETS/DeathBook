@@ -88,12 +88,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0907c1567bad554c8b995de3459e517, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LinkObj: {fileID: 11495142, guid: fab430cecad80ad4391987a06b550cb7, type: 2}
-  PersonObj: {fileID: 11417564, guid: 7a5b1db47a2c30e419038df40dffa79a, type: 2}
-  NumPeople: 50
-  AvgNumFriends: 8
-  FriendshipLikeliness: .400000006
-  SphereRadius: 7
+  gameObjects:
+    LinkObj: {fileID: 11495142, guid: fab430cecad80ad4391987a06b550cb7, type: 2}
+    PersonObj: {fileID: 11417564, guid: 7a5b1db47a2c30e419038df40dffa79a, type: 2}
+  levelOptions:
+    NumPeople: 50
+    AvgNumFriends: 8
+    FriendshipLikeliness: .600000024
+    SphereRadius: 7
   rotationSpeed: .699999988
   torqueForce: 1
   DetailsPanel: {fileID: 0}

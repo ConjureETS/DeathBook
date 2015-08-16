@@ -438,6 +438,10 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1009381200}
   m_Script: {fileID: 11500000, guid: 88fb1885d6f8fd6409e3866b7707a12a, type: 3}
+--- !u!1 &811802576 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 147852, guid: c993e87661906234fba410e55ed66832, type: 2}
+  m_PrefabInternal: {fileID: 1009381200}
 --- !u!1 &997683484
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,7 +585,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22417254, guid: c993e87661906234fba410e55ed66832, type: 2}
       propertyPath: m_AnchorMin.y
-      value: .549793065
+      value: .590630949
       objectReference: {fileID: 0}
     - target: {fileID: 22417254, guid: c993e87661906234fba410e55ed66832, type: 2}
       propertyPath: m_AnchorMax.x
@@ -619,6 +623,19 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: 0c813218655d0a1468d7269b69deb9d5,
         type: 3}
+    - target: {fileID: 22458514, guid: c993e87661906234fba410e55ed66832, type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -65.9512253
+      objectReference: {fileID: 0}
+    - target: {fileID: 11476684, guid: c993e87661906234fba410e55ed66832, type: 2}
+      propertyPath: Container
+      value: 
+      objectReference: {fileID: 811802576}
+    - target: {fileID: 11476684, guid: c993e87661906234fba410e55ed66832, type: 2}
+      propertyPath: UIFriendPicture
+      value: 
+      objectReference: {fileID: 11467422, guid: 16a1d168f1ef75b4690435675a9e69b0,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c993e87661906234fba410e55ed66832, type: 2}
   m_IsPrefabParent: 0
@@ -1083,16 +1100,16 @@ Prefab:
       value: 
       objectReference: {fileID: 724043967}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
-      propertyPath: FriendshipLikeliness
-      value: .600000024
+      propertyPath: levelOptions.NumPeople
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
-      propertyPath: NumPeople
-      value: 50
+      propertyPath: levelOptions.AvgNumFriends
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
-      propertyPath: AvgNumFriends
-      value: 4
+      propertyPath: levelOptions.FriendshipLikeliness
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}

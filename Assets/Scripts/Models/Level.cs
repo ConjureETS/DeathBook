@@ -6,7 +6,7 @@ namespace DeathBook.Model
 {
 	public class Level : Observable, Updatable
 	{
-		private const float TimeScale = 30f;
+		private const float TimeScale = 30*4f;
 
 		private int score;
 		public int Score { get { return score; } }
@@ -17,8 +17,12 @@ namespace DeathBook.Model
 		public List<FriendshipLink> Friendships { get { return friendships; } }
 
 		//1 = 1 minute
-		private float gameTime;
+		private float gameTime; // real seconds elapsed since beginning
 		public int GameTime { get { return (int)(gameTime * TimeScale); } }
+		//Time of day, between 0 minute to 1440 minutes (a day)
+		public int DayTime { get { return GameTime % (24*60); } }
+
+		private int lastHour = -1;
 
 		private float globalAwareness; //on a scale from 0 to 1
 		public float GlobalAwareness { get { return globalAwareness; } }
@@ -32,7 +36,12 @@ namespace DeathBook.Model
 		public void Update(float deltaTime)
 		{
 			gameTime += deltaTime;
-			NotifyObservers();
+			int hour = DayTime / 60;
+			if (hour != lastHour)
+			{
+				lastHour = hour;
+				NotifyObservers();
+			}
 
 			//TODO Global awareness - start trends
 		}
