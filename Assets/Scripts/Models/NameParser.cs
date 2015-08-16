@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using SimpleJSON;
 
 // Names generated from http://www.uinames.com
-public class NameParser : MonoBehaviour
+public class NameParser
 {
     private string[] maleFirstNames;
     private string[] femaleFirstNames;
