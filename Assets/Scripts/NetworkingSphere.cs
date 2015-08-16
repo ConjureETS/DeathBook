@@ -154,7 +154,10 @@ public class NetworkingSphere : MonoBehaviour
             _selectedNode.Select(false);
         }
 
-        FocusOnNode(node);
+        if (_selectedNode != node)
+        {
+            FocusOnNode(node);
+        }
 
         /*
         if (_timeSinceLastClick < 0.5f && node == _selectedNode)
