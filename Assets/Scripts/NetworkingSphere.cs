@@ -42,21 +42,22 @@ public class NetworkingSphere : MonoBehaviour
     private PersonNode _selectedNode;
     private float _timeSinceLastClick;
 
+    private Level lvl;
+
     // Used to disable the physics when the user has clicked on a node
     private bool _isRotatingTowardsNode = false;
 
     void Awake()
     {
 		manager = LevelManager.Instance;
-		Level lvl = manager.NewLevel(levelOptions.NumPeople, levelOptions.AvgNumFriends, levelOptions.FriendshipLikeliness, levelOptions.SphereRadius, strategy);
-
+		lvl = manager.NewLevel(levelOptions.NumPeople, levelOptions.AvgNumFriends, levelOptions.FriendshipLikeliness, levelOptions.SphereRadius, strategy);
         InstantiateNodes(lvl);
         AssignLinks(lvl);
         rb = GetComponent<Rigidbody>();
     }
 
 	void OnGUI()
-	{
+    {
 		int time = manager.GameLevel.DayTime;
 		GUI.Button(new Rect(50, 50, 100, 40), Utils.GetTimeString(time));
 		GUI.Button(new Rect(160, 50, 100, 40), manager.GameLevel.Awareness + "");
@@ -69,7 +70,7 @@ public class NetworkingSphere : MonoBehaviour
             _timeSinceLastClick += Time.deltaTime;
         }
 
-		manager.GameLevel.Update(Time.deltaTime);
+        manager.GameLevel.Update(Time.deltaTime);
 
         //TEMPORARY QUICK FIX: Even though we are never moving the sphere, it starts moving as soon as it stops rotating
         transform.position = Vector3.zero;
@@ -81,7 +82,7 @@ public class NetworkingSphere : MonoBehaviour
         Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(screenMousePos);
 
         // If the world position of the mouse is greater than the radius of the sphere, we are outside
-		if (Mathf.Sqrt(worldMousePos.x * worldMousePos.x + worldMousePos.y * worldMousePos.y) > levelOptions.SphereRadius + 1f)
+        if (Mathf.Sqrt(worldMousePos.x * worldMousePos.x + worldMousePos.y * worldMousePos.y) > levelOptions.SphereRadius + 1f)
         {
             transform.Rotate(Vector3.one * Time.deltaTime * rotationSpeed);
         }
@@ -97,21 +98,25 @@ public class NetworkingSphere : MonoBehaviour
             delta = new Vector3();
         }
 
-        if (dragging && !_isRotatingTowardsNode)
+        if ((dragging && !_isRotatingTowardsNode))
         {
+            if (lvl.tutorialInt == 1)
+            {
+                lvl.allowNext = true;
+            }
             MoveSphere();
         }
 
 
-		//scroll
-		if (Input.GetAxis("Mouse ScrollWheel") != 0)
-		{
-			// if (Camera.main.ScreenToViewportPoint(Input.mousePosition) < new Vector3(1,1,1))
-			if (Camera.main.ScreenToViewportPoint(Input.mousePosition).x < 1)
-			{
-				Camera.main.fieldOfView -= Input.GetAxis("Mouse ScrollWheel") * 10f;
-			}
-		}
+        //scroll
+        if (Input.GetAxis("Mouse ScrollWheel") != 0)
+        {
+            // if (Camera.main.ScreenToViewportPoint(Input.mousePosition) < new Vector3(1,1,1))
+            if (Camera.main.ScreenToViewportPoint(Input.mousePosition).x < 1)
+            {
+                Camera.main.fieldOfView -= Input.GetAxis("Mouse ScrollWheel") * 10f;
+            }
+        }
     }
 
     void MoveSphere()
@@ -150,6 +155,9 @@ public class NetworkingSphere : MonoBehaviour
 
     private void OnNodeClicked(PersonNode node)
     {
+        if (lvl.tutorialInt == 2)
+            lvl.allowNext = true;
+
         rb.angularVelocity = Vector3.zero;
 
         if (_selectedNode != null)
@@ -159,7 +167,8 @@ public class NetworkingSphere : MonoBehaviour
 
         if (!_isRotatingTowardsNode || node != _selectedNode)
         {
-            FocusOnNode(node);
+            if (lvl.tutorialInt > 1)
+                FocusOnNode(node);
         }
         
 
@@ -196,6 +205,7 @@ public class NetworkingSphere : MonoBehaviour
 
     public void FocusOnNode(PersonNode node)
     {
+        
         StopCoroutine("RotateTowardsNodeCoroutine");
         StartCoroutine("RotateTowardsNodeCoroutine", node);
 
