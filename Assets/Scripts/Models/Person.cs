@@ -87,7 +87,7 @@ namespace DeathBook.Model
 			Debug.Log("Person " + id + " died!");
 			alive = false;
 			foreach (Friendship f in friendsList)
-				f.Friend.NotifyFriendWasKilled(f.Other);
+				f.Other.NotifyFriendWasKilled();
 			NotifyObservers();
 
 			return true;
