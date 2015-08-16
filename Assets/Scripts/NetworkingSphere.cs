@@ -42,21 +42,22 @@ public class NetworkingSphere : MonoBehaviour
     private PersonNode _selectedNode;
     private float _timeSinceLastClick;
 
+    private Level lvl;
+
     // Used to disable the physics when the user has clicked on a node
     private bool _isRotatingTowardsNode = false;
 
     void Awake()
     {
 		manager = LevelManager.Instance;
-		Level lvl = manager.NewLevel(levelOptions.NumPeople, levelOptions.AvgNumFriends, levelOptions.FriendshipLikeliness, levelOptions.SphereRadius, strategy);
-
+		lvl = manager.NewLevel(levelOptions.NumPeople, levelOptions.AvgNumFriends, levelOptions.FriendshipLikeliness, levelOptions.SphereRadius, strategy);
         InstantiateNodes(lvl);
         AssignLinks(lvl);
         rb = GetComponent<Rigidbody>();
     }
 
 	void OnGUI()
-	{
+    {
 		int time = manager.GameLevel.DayTime;
 		GUI.Button(new Rect(50, 50, 100, 40), Utils.GetTimeString(time));
 		GUI.Button(new Rect(160, 50, 100, 40), manager.GameLevel.Awareness + "");
@@ -97,8 +98,12 @@ public class NetworkingSphere : MonoBehaviour
             delta = new Vector3();
         }
 
-        if ((dragging && !_isRotatingTowardsNode)) // && ((lvl.tutorialCount == 0) || (lvl.tutorialCount == 1))
+        if ((dragging && !_isRotatingTowardsNode))
         {
+            if (lvl.tutorialInt == 1)
+            {
+                lvl.allowNext = true;
+            }
             MoveSphere();
         }
 
@@ -150,6 +155,9 @@ public class NetworkingSphere : MonoBehaviour
 
     private void OnNodeClicked(PersonNode node)
     {
+        if (lvl.tutorialInt == 2)
+            lvl.allowNext = true;
+
         rb.angularVelocity = Vector3.zero;
 
         if (_selectedNode != null)
@@ -159,7 +167,8 @@ public class NetworkingSphere : MonoBehaviour
 
         if (!_isRotatingTowardsNode || node != _selectedNode)
         {
-            FocusOnNode(node);
+            if (lvl.tutorialInt > 1)
+                FocusOnNode(node);
         }
         
 
@@ -196,6 +205,7 @@ public class NetworkingSphere : MonoBehaviour
 
     public void FocusOnNode(PersonNode node)
     {
+        
         StopCoroutine("RotateTowardsNodeCoroutine");
         StartCoroutine("RotateTowardsNodeCoroutine", node);
 

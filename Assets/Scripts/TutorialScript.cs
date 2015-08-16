@@ -5,14 +5,12 @@ using DeathBook.Model;
 
 public class TutorialScript : MonoBehaviour {
 
-    //public int tutorialInt = 0;
     public GameObject panel;
     public Text tutorialText;
     public Button btnNext;
     private Level lvl;
 
 
-	// Use this for initialization
     void Start()
     {
         lvl = LevelManager.Instance.GameLevel;
@@ -20,13 +18,17 @@ public class TutorialScript : MonoBehaviour {
 
     void Update() {
 
+
+        btnNext.enabled = lvl.allowNext;
         
+        
+        
+
         if (lvl.tutorialInt == 0)
         {
             Time.timeScale = 0;
-            tutorialText.text = "The facebook servers are full!\nMark Zuckerberg hired you, Death, to kill off a few of his users.\nCareful, or you might scare them away from Mark's website...";
-            //btnNext.onClick
-
+            lvl.allowNext = true;
+            tutorialText.text = "The facebook servers are full!\nMark Zuckerberg hired you, Death, to kill off a few of his users.\n\nCareful, or you might scare them away from Mark's website...";
         }
         else if (lvl.tutorialInt == 1)
         {
@@ -34,7 +36,7 @@ public class TutorialScript : MonoBehaviour {
         }
         else if (lvl.tutorialInt == 2)
         {
-            tutorialText.text = "Move around by clicking on the users in the network!";
+            tutorialText.text = "Move around by left clicking on the users in the network!";
         }
         else if (lvl.tutorialInt == 3)
         {
@@ -42,7 +44,13 @@ public class TutorialScript : MonoBehaviour {
         }
         else if (lvl.tutorialInt == 4)
         {
-            tutorialText.text = "Alright, time for our first victim.\nHold the right mouse button over a user until the X appears completely.";
+            tutorialText.text = "Alright, time for our first victim.\nHold the LEFT mouse button over a user until the X is complete.\nBeware! The user must be offline to be killed!";
+            tutorialText.text += "\n\nYou can hold the mouse button until the user goes offline.";
+        }
+        else if (lvl.tutorialInt == 5)
+        {
+            tutorialText.text = "Kill many users to see how the color changes\n\nRemember, as users realize something is wrong with facebook,\nthe entire network will turn red!\n\nHaveFun!";
+            lvl.allowNext = true;
         }
         else
         {
@@ -54,10 +62,12 @@ public class TutorialScript : MonoBehaviour {
 
     public void btnClick()
     {
+        
         lvl.tutorialInt++;
-        Debug.Log(lvl.tutorialInt + ", aasfasf");
+        //Debug.Log(lvl.tutorialInt + ", aasfasf");
         Time.timeScale = 1;
         tutorialText.text = "eee";
+        lvl.allowNext = false;
         //panel.transform.Translate(Vector3.right * 100);
     }
 	
