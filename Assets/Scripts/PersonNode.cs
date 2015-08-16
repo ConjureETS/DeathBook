@@ -120,7 +120,7 @@ public class PersonNode : MonoBehaviour, IObserver
 
         while (ratio < 1f)
         {
-            ratio += Time.deltaTime / 0.5f;
+            ratio += Time.deltaTime / 0.4f;
 
             bloodSplatter.transform.localScale = Vector3.Lerp(Vector3.zero, finalScale, ratio);
 
