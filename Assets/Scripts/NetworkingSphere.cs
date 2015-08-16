@@ -125,6 +125,9 @@ public class NetworkingSphere : MonoBehaviour
         node.Select(true);
 
         _selectedNode = node;
+
+        // Testing to see how it looks and feels like
+        FocusOnNode(node);
     }
 
     private void AssignLinks(Level lvl)
@@ -139,6 +142,62 @@ public class NetworkingSphere : MonoBehaviour
             // Temporary stuff, for testing
             peopleNodes[id1].AddLink(link);
             peopleNodes[id2].AddLink(link);
+        }
+    }
+
+    public void FocusOnNode(PersonNode node)
+    {
+        StopCoroutine("RotateTowardsNodeCoroutine");
+        StartCoroutine("RotateTowardsNodeCoroutine", node);
+
+        /*
+        Debug.Log(node.transform.eulerAngles);
+
+        float xangle = (Mathf.Atan2(finalPos.z, finalPos.y) - Mathf.Atan2(initialPos.z, initialPos.y)) * Mathf.Rad2Deg;
+
+        Debug.Log(node.transform.position);
+        transform.Rotate(new Vector3(90, 0, 0));
+        //transform.rotation = transform.rotation * Quaternion.AngleAxis(xangle, Vector3.right);
+        Debug.Log(xangle);
+        float yAngle = (Mathf.Atan2(finalPos.x, finalPos.z) - Mathf.Atan2(node.transform.position.x, node.transform.position.z)) * Mathf.Rad2Deg;
+        Debug.Log(yAngle);
+        //transform.Rotate(new Vector3(xangle, yAngle, 0));
+
+        //float zAngle = (Mathf.Atan2(finalPos.y, finalPos.x) - Mathf.Atan2(initialPos.y, initialPos.x)) * Mathf.Rad2Deg;
+
+        //transform.rotation = transform.rotation * Quaternion.AngleAxis(xangle, Vector3.right) * Quaternion.AngleAxis(yAngle, Vector3.up) * Quaternion.AngleAxis(zAngle, Vector3.forward);
+        */
+    }
+
+    private IEnumerator RotateTowardsNodeCoroutine(PersonNode node)
+    {
+        //Vector3 finalPos = new Vector3(0f, 0f, -SphereRadius);
+
+        Quaternion initialRot = transform.localRotation;
+
+
+        transform.localRotation = Quaternion.identity; // Temporary hack for the game jam
+
+
+        Vector3 nodePos = node.transform.position;
+
+        Vector3 longDir = nodePos;
+        longDir.y = 0;
+
+        float longitude = Vector3.Angle(-Vector3.forward, longDir) * (longDir.x < 0 ? -1 : 1);
+        float latitude = Mathf.Asin(nodePos.normalized.y) * Mathf.Rad2Deg;
+
+        Quaternion finalRot = Quaternion.AngleAxis(-latitude, Vector3.right) * Quaternion.AngleAxis(longitude, Vector3.up);
+
+        float ratio = 0f;
+
+        while (ratio < 1f)
+        {
+            ratio += Time.deltaTime / 1.5f;
+
+            transform.localRotation = Quaternion.Lerp(initialRot, finalRot, Mathf.SmoothStep(0f, 1f, ratio));
+
+            yield return null;
         }
     }
 }

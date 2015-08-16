@@ -29,7 +29,7 @@ public class PersonDetailsPanel : MonoBehaviour, IObserver
         {
             _model.UnSubscribe(this);
         }
-
+        
         _node = node;
         _model = node.Model;
 
@@ -78,15 +78,6 @@ public class PersonDetailsPanel : MonoBehaviour, IObserver
             friendPicture.rectTransform.anchorMax = new Vector2(0.26f, (1f - height * i));
             friendPicture.rectTransform.offsetMin = Vector2.zero;
             friendPicture.rectTransform.offsetMax = Vector2.zero;
-
-            if (i == _model.FriendList.Count - 1)
-            {
-                Debug.Log(friendPicture.rectTransform.position);
-            }
-            else if (i == 0)
-            {
-                Debug.Log(friendPicture.rectTransform.position);
-            }
         }
     }
 
