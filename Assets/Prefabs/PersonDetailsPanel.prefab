@@ -657,7 +657,7 @@ MonoBehaviour:
   WatchButton: {fileID: 11491412}
   XButton: {fileID: 11494666}
   Container: {fileID: 147852}
-  UIFriendPicture: {fileID: 11467422, guid: 16a1d168f1ef75b4690435675a9e69b0, type: 2}
+  FriendPicture: {fileID: 11469406, guid: 16a1d168f1ef75b4690435675a9e69b0, type: 2}
 --- !u!114 &11478962
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -591,6 +591,38 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11414010, guid: c993e87661906234fba410e55ed66832, type: 2}
+      propertyPath: m_Value
+      value: .999377966
+      objectReference: {fileID: 0}
+    - target: {fileID: 11414010, guid: c993e87661906234fba410e55ed66832, type: 2}
+      propertyPath: m_Size
+      value: .40900141
+      objectReference: {fileID: 0}
+    - target: {fileID: 11458616, guid: c993e87661906234fba410e55ed66832, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0c813218655d0a1468d7269b69deb9d5,
+        type: 3}
+    - target: {fileID: 11402414, guid: c993e87661906234fba410e55ed66832, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0c813218655d0a1468d7269b69deb9d5,
+        type: 3}
+    - target: {fileID: 11450318, guid: c993e87661906234fba410e55ed66832, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0c813218655d0a1468d7269b69deb9d5,
+        type: 3}
+    - target: {fileID: 11469610, guid: c993e87661906234fba410e55ed66832, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0c813218655d0a1468d7269b69deb9d5,
+        type: 3}
+    - target: {fileID: 22458514, guid: c993e87661906234fba410e55ed66832, type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -65.9390106
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c993e87661906234fba410e55ed66832, type: 2}
   m_IsPrefabParent: 0
@@ -1054,6 +1086,18 @@ Prefab:
       propertyPath: DetailsPanel
       value: 
       objectReference: {fileID: 724043967}
+    - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
+      propertyPath: FriendshipLikeliness
+      value: .600000024
+      objectReference: {fileID: 0}
+    - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
+      propertyPath: NumPeople
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
+      propertyPath: AvgNumFriends
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
   m_IsPrefabParent: 0
