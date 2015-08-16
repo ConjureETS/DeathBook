@@ -1530,7 +1530,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.deathNoticing.popularity.x
-      value: .75
+      value: .600000024
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.deathNoticing.importance.x
@@ -1538,11 +1538,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.deathNoticing.numFriends.x
-      value: .75
+      value: .800000012
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.deathNoticing.awareness.x
-      value: .75
+      value: .800000012
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.chanceToPost.popularity.x
@@ -1562,7 +1562,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.deathNoticing.popularity.y
-      value: .25
+      value: .400000006
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.deathNoticing.importance.y
@@ -1570,11 +1570,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.deathNoticing.numFriends.y
-      value: .25
+      value: .200000003
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.deathNoticing.awareness.y
-      value: .25
+      value: .200000003
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.chanceToPost.popularity.y
@@ -1634,11 +1634,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.awarenessChange.modifier
-      value: .300000012
+      value: .219999999
       objectReference: {fileID: 0}
     - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
       propertyPath: strategy.awarenessChange.maxDeathDuration
-      value: 20160
+      value: 10080
+      objectReference: {fileID: 0}
+    - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
+      propertyPath: strategy.deathNoticing.modifier
+      value: .0299999993
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
