@@ -136,7 +136,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: .847058833, g: .874509811, b: .917647064, a: 1}
+  m_BackGroundColor: {r: .117647059, g: .176470593, b: .286274523, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: .196078435, g: .196078435, b: .196078435, a: 1}
+  m_Color: {r: .117647059, g: .176470593, b: .286274523, a: 1}
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
@@ -413,7 +413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: .23137255, g: .349019617, b: .596078455, a: 1}
+  m_Color: {r: .215686277, g: .325490206, b: .541176498, a: 1}
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
   m_PreserveAspect: 0
@@ -733,15 +733,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22417254, guid: c993e87661906234fba410e55ed66832, type: 2}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: .415405631
       objectReference: {fileID: 0}
     - target: {fileID: 22417254, guid: c993e87661906234fba410e55ed66832, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22417254, guid: c993e87661906234fba410e55ed66832, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: .999999881
+      objectReference: {fileID: 0}
+    - target: {fileID: 11414010, guid: c993e87661906234fba410e55ed66832, type: 2}
+      propertyPath: m_Value
+      value: .999999702
+      objectReference: {fileID: 0}
+    - target: {fileID: 11414010, guid: c993e87661906234fba410e55ed66832, type: 2}
+      propertyPath: m_Size
+      value: .58459425
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c993e87661906234fba410e55ed66832, type: 2}
@@ -1056,6 +1064,28 @@ Prefab:
       propertyPath: DetailsPanel
       value: 
       objectReference: {fileID: 724043967}
+    - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
+      propertyPath: gameObjects.LinkObj
+      value: 
+      objectReference: {fileID: 11495142, guid: fab430cecad80ad4391987a06b550cb7,
+        type: 2}
+    - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
+      propertyPath: gameObjects.PersonObj
+      value: 
+      objectReference: {fileID: 11417564, guid: 7a5b1db47a2c30e419038df40dffa79a,
+        type: 2}
+    - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
+      propertyPath: levelOptions.SphereRadius
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
+      propertyPath: levelOptions.FriendshipLikeliness
+      value: .600000024
+      objectReference: {fileID: 0}
+    - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
+      propertyPath: levelOptions.AvgNumFriends
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
   m_IsPrefabParent: 0
