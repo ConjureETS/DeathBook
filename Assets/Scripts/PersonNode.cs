@@ -223,8 +223,6 @@ public class PersonNode : MonoBehaviour, IObserver
     {
         if (!_model.Alive) return;
 
-        Debug.Log(_model.Alive);
-
         _holdDuration += Time.deltaTime;
         
         xMarkLeft.SetCompletedRatio(Mathf.Clamp(_holdDuration - 0.025f, 0f, 1f));
