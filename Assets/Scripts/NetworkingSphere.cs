@@ -40,6 +40,9 @@ public class NetworkingSphere : MonoBehaviour
 
     private PersonNode _selectedNode;
 
+    // Used to disable the physics when the user has clicked on a node
+    private bool _isRotatingTowardsNode = false;
+
     void Awake()
     {
 		manager = LevelManager.Instance;
@@ -87,7 +90,7 @@ public class NetworkingSphere : MonoBehaviour
             delta = new Vector3();
         }
 
-        if (dragging)
+        if (dragging && !_isRotatingTowardsNode)
         {
             MoveSphere();
         }
@@ -140,17 +143,20 @@ public class NetworkingSphere : MonoBehaviour
 
     private void OnNodeClicked(PersonNode node)
     {
+        if (node == _selectedNode) return;
+
         if (_selectedNode != null)
         {
             _selectedNode.Select(false);
         }
 
-		node.Kill();
-
         DetailsPanel.SetNode(node);
         node.Select(true);
 
         _selectedNode = node;
+
+        // Testing to see how it looks and feels like
+        FocusOnNode(node);
     }
 
     private void AssignLinks(Level lvl)
@@ -167,5 +173,66 @@ public class NetworkingSphere : MonoBehaviour
             peopleNodes[id1].AddLink(link);
             peopleNodes[id2].AddLink(link);
         }
+    }
+
+    public void FocusOnNode(PersonNode node)
+    {
+        StopCoroutine("RotateTowardsNodeCoroutine");
+        StartCoroutine("RotateTowardsNodeCoroutine", node);
+
+        /*
+        Debug.Log(node.transform.eulerAngles);
+
+        float xangle = (Mathf.Atan2(finalPos.z, finalPos.y) - Mathf.Atan2(initialPos.z, initialPos.y)) * Mathf.Rad2Deg;
+
+        Debug.Log(node.transform.position);
+        transform.Rotate(new Vector3(90, 0, 0));
+        //transform.rotation = transform.rotation * Quaternion.AngleAxis(xangle, Vector3.right);
+        Debug.Log(xangle);
+        float yAngle = (Mathf.Atan2(finalPos.x, finalPos.z) - Mathf.Atan2(node.transform.position.x, node.transform.position.z)) * Mathf.Rad2Deg;
+        Debug.Log(yAngle);
+        //transform.Rotate(new Vector3(xangle, yAngle, 0));
+
+        //float zAngle = (Mathf.Atan2(finalPos.y, finalPos.x) - Mathf.Atan2(initialPos.y, initialPos.x)) * Mathf.Rad2Deg;
+
+        //transform.rotation = transform.rotation * Quaternion.AngleAxis(xangle, Vector3.right) * Quaternion.AngleAxis(yAngle, Vector3.up) * Quaternion.AngleAxis(zAngle, Vector3.forward);
+        */
+    }
+
+    private IEnumerator RotateTowardsNodeCoroutine(PersonNode node)
+    {
+        _isRotatingTowardsNode = true;
+        rb.angularVelocity = Vector3.zero;
+
+        //Vector3 finalPos = new Vector3(0f, 0f, -SphereRadius);
+
+        Quaternion initialRot = transform.localRotation;
+
+
+        transform.localRotation = Quaternion.identity; // Temporary hack for the game jam
+
+
+        Vector3 nodePos = node.transform.position;
+
+        Vector3 longDir = nodePos;
+        longDir.y = 0;
+
+        float xAngle = Mathf.Asin(nodePos.normalized.y) * Mathf.Rad2Deg; // Latitude
+        float yAngle = Vector3.Angle(-Vector3.forward, longDir) * (longDir.x < 0 ? -1 : 1); // Longitude
+
+        Quaternion finalRot = Quaternion.AngleAxis(-xAngle, Vector3.right) * Quaternion.AngleAxis(yAngle, Vector3.up);
+
+        float ratio = 0f;
+
+        while (ratio < 1f)
+        {
+            ratio += Time.deltaTime / 1.5f;
+
+            transform.localRotation = Quaternion.Lerp(initialRot, finalRot, Mathf.SmoothStep(0f, 1f, ratio));
+
+            yield return null;
+        }
+
+        _isRotatingTowardsNode = false;
     }
 }

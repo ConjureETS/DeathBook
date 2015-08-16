@@ -48,6 +48,8 @@ namespace DeathBook.Model
 		private Sprite picture;
 		public Sprite Picture { get { return picture; } }
 
+		private Action onSelected;
+		public Action OnSelected {get {return onSelected;} set { onSelected = value; } }
 
 		public Person(int id, string fName, string lName, Vector3 pos, int conn, int disconn, float freq, Sprite pic)
 		{
@@ -125,6 +127,14 @@ namespace DeathBook.Model
 
 			foreach (Friendship f in deadFriendsList)
 				f.Update(deltaTime);
+		}
+		
+		public void SelectNode()
+		{
+			if (OnSelected != null)
+			{
+				OnSelected();
+			}
 		}
 	}
 }

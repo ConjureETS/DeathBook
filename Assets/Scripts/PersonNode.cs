@@ -38,6 +38,7 @@ public class PersonNode : MonoBehaviour, IObserver
         {
             _model = value;
             _model.Subscribe(this);
+            _model.OnSelected += () => { OnClicked(this); };
             UpdateInfo();
             SetProfilePicture();
         }
