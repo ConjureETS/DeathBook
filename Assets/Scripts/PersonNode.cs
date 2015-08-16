@@ -30,7 +30,6 @@ public class PersonNode : MonoBehaviour, IObserver
     private Renderer _renderer;
     private Transform _transform;
 
-
     public Person Model
     {
         get { return _model; }

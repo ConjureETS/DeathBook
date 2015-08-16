@@ -29,5 +29,6 @@ public class UIFriendPicture : MonoBehaviour
     public void OnClick()
     {
         _model.SelectNode();
+        _model.SelectNode();
     }
 }
