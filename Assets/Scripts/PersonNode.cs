@@ -23,6 +23,7 @@ public class PersonNode : MonoBehaviour, IObserver
     public float KillHoldDuration = 2f;
     public RatioProgression xMarkLeft;
     public RatioProgression xMarkRight;
+    public Renderer bloodSplatter;
 
     private List<Link> _links;
     private bool _highlighted = false;
@@ -103,8 +104,47 @@ public class PersonNode : MonoBehaviour, IObserver
 
 	public void Kill()
 	{
-		_model.Kill();
+        if (_model.Kill())
+        {
+            StartCoroutine(SplashBlood());
+        }
 	}
+
+    private IEnumerator SplashBlood()
+    {
+        bloodSplatter.gameObject.SetActive(true);
+
+        float ratio = 0f;
+
+        Vector3 finalScale = Vector3.one * 1.7f;
+
+        while (ratio < 1f)
+        {
+            ratio += Time.deltaTime / 0.5f;
+
+            bloodSplatter.transform.localScale = Vector3.Lerp(Vector3.zero, finalScale, ratio);
+
+            yield return null;
+        }
+
+        ratio = 0f;
+
+        Color initialColor = bloodSplatter.material.color;
+        Color finalColor = initialColor;
+        finalColor.a = 0f;
+
+        // Fade out
+        while (ratio < 1f)
+        {
+            ratio += Time.deltaTime / 1f;
+
+            bloodSplatter.material.color = Color.Lerp(initialColor, finalColor, ratio);
+
+            yield return null;
+        }
+
+        bloodSplatter.gameObject.SetActive(false);
+    }
 
     public void Notify()
     {
