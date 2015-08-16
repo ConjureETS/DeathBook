@@ -671,6 +671,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ProfilePicture: {fileID: 11440110}
   Name: {fileID: 11472562}
+  FriendsTitle: {fileID: 11400246}
   FriendsPanel: {fileID: 159508}
   KillButton: {fileID: 11400492}
   WatchButton: {fileID: 11491412}
@@ -1151,8 +1152,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 22471300}
   m_RootOrder: 1
-  m_AnchorMin: {x: .185000002, y: .147}
-  m_AnchorMax: {x: .464206487, y: .5}
+  m_AnchorMin: {x: .465619415, y: 0}
+  m_AnchorMax: {x: .857309759, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}
@@ -1296,8 +1297,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 22471300}
   m_RootOrder: 2
-  m_AnchorMin: {x: .185000002, y: .546483397}
-  m_AnchorMax: {x: 1, y: .877516687}
+  m_AnchorMin: {x: .185000002, y: 0}
+  m_AnchorMax: {x: .450309694, y: .877516687}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}

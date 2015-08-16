@@ -9,6 +9,7 @@ public class PersonDetailsPanel : MonoBehaviour, IObserver
 {
     public Image ProfilePicture;
     public Text Name;
+    public Text FriendsTitle;
     public GameObject FriendsPanel;
     public Button KillButton;
     public Button WatchButton;
@@ -77,6 +78,8 @@ public class PersonDetailsPanel : MonoBehaviour, IObserver
         // We copy the list so we can sort it without affecting the model data
         List<Friendship> list = new List<Friendship>(_model.FriendList);
         list.Sort();
+
+        FriendsTitle.text = string.Concat("Friends (", list.Count, ")");
 
         for (int i = 0; i < list.Count; i++)
         {
