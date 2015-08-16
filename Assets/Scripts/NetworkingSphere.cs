@@ -68,7 +68,7 @@ public class NetworkingSphere : MonoBehaviour
             _timeSinceLastClick += Time.deltaTime;
         }
 
-		manager.GameLevel.Update(Time.deltaTime);
+        manager.GameLevel.Update(Time.deltaTime);
 
         //TEMPORARY QUICK FIX: Even though we are never moving the sphere, it starts moving as soon as it stops rotating
         transform.position = Vector3.zero;
@@ -80,7 +80,7 @@ public class NetworkingSphere : MonoBehaviour
         Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(screenMousePos);
 
         // If the world position of the mouse is greater than the radius of the sphere, we are outside
-		if (Mathf.Sqrt(worldMousePos.x * worldMousePos.x + worldMousePos.y * worldMousePos.y) > levelOptions.SphereRadius + 1f)
+        if (Mathf.Sqrt(worldMousePos.x * worldMousePos.x + worldMousePos.y * worldMousePos.y) > levelOptions.SphereRadius + 1f)
         {
             transform.Rotate(Vector3.one * Time.deltaTime * rotationSpeed);
         }
@@ -96,21 +96,21 @@ public class NetworkingSphere : MonoBehaviour
             delta = new Vector3();
         }
 
-        if (dragging && !_isRotatingTowardsNode)
+        if ((dragging && !_isRotatingTowardsNode)) // && ((lvl.tutorialCount == 0) || (lvl.tutorialCount == 1))
         {
             MoveSphere();
         }
 
 
-		//scroll
-		if (Input.GetAxis("Mouse ScrollWheel") != 0)
-		{
-			// if (Camera.main.ScreenToViewportPoint(Input.mousePosition) < new Vector3(1,1,1))
-			if (Camera.main.ScreenToViewportPoint(Input.mousePosition).x < 1)
-			{
-				Camera.main.fieldOfView -= Input.GetAxis("Mouse ScrollWheel") * 10f;
-			}
-		}
+        //scroll
+        if (Input.GetAxis("Mouse ScrollWheel") != 0)
+        {
+            // if (Camera.main.ScreenToViewportPoint(Input.mousePosition) < new Vector3(1,1,1))
+            if (Camera.main.ScreenToViewportPoint(Input.mousePosition).x < 1)
+            {
+                Camera.main.fieldOfView -= Input.GetAxis("Mouse ScrollWheel") * 10f;
+            }
+        }
     }
 
     void MoveSphere()

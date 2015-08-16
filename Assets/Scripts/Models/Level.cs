@@ -26,6 +26,7 @@ namespace DeathBook.Model
 
 		private float globalAwareness; //on a scale from 0 to 1
 		public float GlobalAwareness { get { return globalAwareness; } }
+        public int tutorialInt = 0;
 
 		public Level(List<Person> people, List<FriendshipLink> friendships)
 		{
