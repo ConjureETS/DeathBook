@@ -7,11 +7,15 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     public Text TimerText;
-
-    
+	int lastTime = -1;
 
     void Update()
     {
-        TimerText.text = Utils.GetTimeString(LevelManager.Instance.GameLevel.DayTime);
+		int time = LevelManager.Instance.GameLevel.DayTime / 30;
+		if (time != lastTime)
+		{
+			TimerText.text = Utils.GetTimeString(time * 30);
+			lastTime = time;
+		}
     }
 }

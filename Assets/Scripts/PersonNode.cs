@@ -8,7 +8,7 @@ using System;
 [RequireComponent(typeof(Collider))]
 public class PersonNode : MonoBehaviour, IObserver
 {
-	private const float UpdateFrequency = 0.5f;
+	private const float UpdateFrequency = 0.4f;
 	private float time = 0;
 
     public Action<PersonNode> OnClicked;
@@ -23,7 +23,8 @@ public class PersonNode : MonoBehaviour, IObserver
     public float KillHoldDuration = 2f;
     public RatioProgression xMarkLeft;
     public RatioProgression xMarkRight;
-    public Renderer bloodSplatter;
+	public Renderer bloodSplatter;
+	public Renderer shoutBubble;
 
     private List<Link> _links;
     private bool _highlighted = false;
@@ -157,6 +158,8 @@ public class PersonNode : MonoBehaviour, IObserver
         //If dead -> set offline until all friends are aware, then add a big red X to profile pic
         if (_model.Alive)
         {
+			shoutBubble.gameObject.SetActive(_model.CurrentStatus != null);
+
             SetColors();
         }
         else

@@ -13,7 +13,7 @@ public class loadLevel : MonoBehaviour
 
     void NextScene()
     {
-        Application.LoadLevel("Gameplay");
+        Application.LoadLevel("Tutoriel");
     }
 
 }
