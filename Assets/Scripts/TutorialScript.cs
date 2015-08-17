@@ -19,7 +19,7 @@ public class TutorialScript : MonoBehaviour {
     void Update() {
 
 
-        btnNext.enabled = lvl.allowNext;
+        btnNext.gameObject.SetActive(lvl.allowNext);
         
         
         
