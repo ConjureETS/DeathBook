@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using System;
 using DeathBook.Util;
 
 namespace DeathBook.Model
@@ -43,6 +42,18 @@ namespace DeathBook.Model
 				float change = value - awarenessLevel;
 				awarenessLevel = value;
 				LevelManager.Instance.GameLevel.AddAwareness(change);
+				NotifyObservers();
+			}
+		}
+
+		private static Level level;
+		private static Level GameLevel
+		{
+			get
+			{
+				if (level == null)
+					level = LevelManager.Instance.GameLevel;
+				return level;
 			}
 		}
 
@@ -58,8 +69,15 @@ namespace DeathBook.Model
 		private Sprite picture;
 		public Sprite Picture { get { return picture; } }
 
-		private Action onSelected;
-		public Action OnSelected {get {return onSelected;} set { onSelected = value; } }
+		private System.Action onSelected;
+		public System.Action OnSelected {get {return onSelected;} set { onSelected = value; } }
+
+		private Status status = null;
+		public Status CurrentStatus 
+		{ 
+			get { return status; }
+			set { status = value; NotifyObservers(); } 
+		}
 
 		private GameStrategy strategy;
 		public GameStrategy Strategy
@@ -110,30 +128,32 @@ namespace DeathBook.Model
 			//Debug.Log("Person " + id + " died!");
 			alive = false;
 
-            if (LevelManager.Instance.GameLevel.tutorialInt == 4)
-                LevelManager.Instance.GameLevel.allowNext = true;
+            if (GameLevel.tutorialInt == 4)
+                GameLevel.allowNext = true;
 
 			foreach (Friendship f in friendsList)
 				f.Other.NotifyFriendWasKilled();
 			NotifyObservers();
 
-			LevelManager.Instance.GameLevel.RegisterKill(this);
+			GameLevel.RegisterKill(this);
 
 			return true;
 		}
 
 		public void NoticeDeath(Friendship f)
 		{
-			int deathTime = LevelManager.Instance.GameLevel.GameTime;
+			int deathTime = GameLevel.GameTime;
 			int sinceLastDeath = numDeadFriends == 0 ? int.MaxValue/2 : deathTime - lastFriendDeath;
 
 			float strategyOutput = Strategy.GetAwarenessChange(numDeadFriends, numAliveFriends, sinceLastDeath);
 
 			AwarenessLevel = Mathf.Min(AwarenessLevel + strategyOutput, 1f);
 
-			NotifyObservers();
+			if (Random.value < 0.3f)
+			{
+				CurrentStatus = new Status(GameLevel.GameTime, f);
+			}
 
-			
 			//Debug.Log("I am " + id + " and I know my friend " + f.Friend.Id + " was killed.. " + strategyOutput);
 		}
 
@@ -145,8 +165,35 @@ namespace DeathBook.Model
 			return !(time < ConnectionTime && time > DisconnectionTime);
 		}
 
+		private void ShareStatus()
+		{
+			if (Random.value < 0.3f)
+			{
+				foreach (Friendship f in friendsList)
+					f.Friend.ReceiveStatus(CurrentStatus);
+			}
+		}
+
+		public void ReceiveStatus(Status newStatus)
+		{
+			Debug.Log("Oh noes, " + newStatus.Friends.Friend + " died...");
+			/*foreach (Friendship f in friendsList)
+			{
+				if (f.Friend == newStatus.Friends) ;
+			}*/
+		}
+
 		public void Update(float deltaTime)
 		{
+			if (CurrentStatus != null)
+			{
+				if (CurrentStatus.EndTime < GameLevel.GameTime)
+				{
+					ShareStatus();
+					CurrentStatus = null;
+				}
+			}
+
 			if (!Alive)
 				return;
 

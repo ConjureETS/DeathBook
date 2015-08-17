@@ -43,7 +43,6 @@ namespace DeathBook.Model
 
 			link.Awareness += Self.Strategy.GetDeathNoticing(1f /*Friend.Popularity*/, Link.Importance, Self.FriendCount, Self.AwarenessLevel);
 
-			link.Awareness = Mathf.Min(link.Awareness + deltaTime * 0.1f, 1f);
 			if (link.Awareness >= 1f)
 			{
 				self.NoticeDeath(this);
