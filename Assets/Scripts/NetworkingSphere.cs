@@ -167,7 +167,7 @@ public class NetworkingSphere : MonoBehaviour
 
         if (!_isRotatingTowardsNode || node != _selectedNode)
         {
-            if (lvl.tutorialInt > 1)
+            if ((lvl.tutorialInt > 1) || (lvl.tutorialInt > 1))
                 FocusOnNode(node);
         }
         

@@ -122,7 +122,7 @@ namespace DeathBook.Model
 
 		public bool Kill()
 		{
-            if (Online || (LevelManager.Instance.GameLevel.tutorialInt < 4))
+            if (Online || ((LevelManager.Instance.GameLevel.tutorialInt < 4) && (LevelManager.Instance.GameLevel.tutorialInt >= 0)))
 			    return false;
 
 			//Debug.Log("Person " + id + " died!");
