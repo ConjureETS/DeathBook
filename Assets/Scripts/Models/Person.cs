@@ -72,8 +72,8 @@ namespace DeathBook.Model
 		private System.Action onSelected;
 		public System.Action OnSelected {get {return onSelected;} set { onSelected = value; } }
 
-		private Status status = null;
-		public Status CurrentStatus 
+		private ShoutBubble status = null;
+		public ShoutBubble CurrentStatus 
 		{ 
 			get { return status; }
 			set { status = value; NotifyObservers(); } 
@@ -157,7 +157,7 @@ namespace DeathBook.Model
 
 			if (Random.value < 0.2f)
 			{
-				CurrentStatus = new Status(GameLevel.GameTime, f);
+				CurrentStatus = new ShoutBubble(GameLevel.GameTime, f);
 			}
 
 			//Debug.Log("I am " + id + " and I know my friend " + f.Friend.Id + " was killed.. " + strategyOutput);
