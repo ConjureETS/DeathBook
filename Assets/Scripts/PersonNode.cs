@@ -8,7 +8,7 @@ using System;
 [RequireComponent(typeof(Collider))]
 public class PersonNode : MonoBehaviour, IObserver
 {
-	private const float UpdateFrequency = 0.5f;
+	private const float UpdateFrequency = 0.4f;
 	private float time = 0;
 
     public Action<PersonNode> OnClicked;

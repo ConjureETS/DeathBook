@@ -4,8 +4,8 @@ namespace DeathBook.Model
 {
 	public class Status
 	{
-		/*private int startTime;
-		public int StartTime { get { return startTime; } }*/
+		private int startTime;
+		public int StartTime { get { return startTime; } }
 		private int endTime;
 		public int EndTime { get { return endTime; } }
 		private Friendship friends;
@@ -13,8 +13,8 @@ namespace DeathBook.Model
 
 		public Status(int startTime, Friendship friendship)
 		{
-			/*this.startTime = startTime;*/
-			this.endTime = startTime = (int) Utils.GetRandomValue(60*1.5f, 35, 3);
+			this.startTime = startTime;
+			this.endTime = startTime + (int) Utils.GetRandomValue(700, 250, 3);
 			friends = friendship;
 		}
 	}

@@ -154,7 +154,7 @@ namespace DeathBook.Model
 
 			AwarenessLevel = Mathf.Min(AwarenessLevel + strategyOutput, 1f);
 
-			if (Random.value < 0.3f)
+			if (Random.value < 0.2f)
 			{
 				CurrentStatus = new Status(GameLevel.GameTime, f);
 			}
@@ -170,23 +170,23 @@ namespace DeathBook.Model
 			return !(time < ConnectionTime && time > DisconnectionTime);
 		}
 
-		private void ShareStatus()
+		/*private void ShareStatus()
 		{
 			if (Random.value < 0.3f)
 			{
 				foreach (Friendship f in friendsList)
 					f.Friend.ReceiveStatus(CurrentStatus);
 			}
-		}
+		}*/
 
-		public void ReceiveStatus(Status newStatus)
+		/*public void ReceiveStatus(Status newStatus)
 		{
 			Debug.Log("Oh noes, " + newStatus.Friends.Friend + " died...");
-			/*foreach (Friendship f in friendsList)
+			foreach (Friendship f in friendsList)
 			{
 				if (f.Friend == newStatus.Friends) ;
-			}*/
-		}
+			}
+		}*/
 
 		public void Update(float deltaTime)
 		{
@@ -194,7 +194,7 @@ namespace DeathBook.Model
 			{
 				if (CurrentStatus.EndTime < GameLevel.GameTime)
 				{
-					ShareStatus();
+					//ShareStatus();
 					CurrentStatus = null;
 				}
 			}

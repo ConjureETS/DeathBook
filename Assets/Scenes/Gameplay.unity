@@ -1512,6 +1512,22 @@ Prefab:
       propertyPath: DetailsPanel
       value: 
       objectReference: {fileID: 1197925315}
+    - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
+      propertyPath: strategy.deathNoticing.modifier
+      value: .200000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
+      propertyPath: levelOptions.NumPeople
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
+      propertyPath: levelOptions.AvgNumFriends
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 11432906, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
+      propertyPath: levelOptions.FriendshipLikeliness
+      value: .600000024
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 136ea38d5deb4c9418beb879167d9b03, type: 2}
   m_IsPrefabParent: 0
