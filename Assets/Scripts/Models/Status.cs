@@ -4,6 +4,12 @@ namespace DeathBook.Model
 {
 	public class Status : Post
 	{
-		//TODO
+        private string _text;
+
+        public string Text
+        {
+            get { return _text; }
+            set { _text = value; }
+        }
 	}
 }
