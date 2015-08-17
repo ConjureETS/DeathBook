@@ -31,7 +31,10 @@ namespace DeathBook.Model
 
 		public static string GetTimeString(int time)
 		{
-			return time / 60 + "h " + time % 60 + "m";
+            float dTime = time / 60;
+
+            // Quick patch, but it's working (1 hour off)
+            return ((dTime % 12) + 1) + ":" + (time % 60).ToString("D2") + ((dTime >= 11 && dTime <= 22) ? " PM" : " AM");
 		}
 	}
 }
