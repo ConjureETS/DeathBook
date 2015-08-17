@@ -76,7 +76,7 @@ namespace DeathBook.Model
 			for (int i = 0; i < totalCount; i++)
 			{
 				p1 = people[i];
-				missing = avgConnections - p1.FriendCount; // TODO Add randomness
+				missing = Mathf.Clamp((int) Utils.GetRandomValue(avgConnections, avgConnections*1.2f, 3), 1, 100) - p1.FriendCount;
 
 				if (missing <= 0)
 					continue;

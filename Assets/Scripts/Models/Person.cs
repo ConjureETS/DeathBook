@@ -127,6 +127,7 @@ namespace DeathBook.Model
 
 			//Debug.Log("Person " + id + " died!");
 			alive = false;
+			CurrentStatus = null;
 
             if (GameLevel.tutorialInt == 4)
                 GameLevel.tutorialInt = 5;
@@ -202,7 +203,7 @@ namespace DeathBook.Model
 			if (!Alive)
 				return;
 
-			int time = LevelManager.Instance.GameLevel.DayTime;
+			int time = GameLevel.DayTime;
 
 			bool isOnline = IsOnline(time);
 
