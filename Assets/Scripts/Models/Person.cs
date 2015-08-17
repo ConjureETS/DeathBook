@@ -111,7 +111,7 @@ namespace DeathBook.Model
 			alive = false;
 
             if (LevelManager.Instance.GameLevel.tutorialInt == 4)
-                LevelManager.Instance.GameLevel.allowNext = true;
+                LevelManager.Instance.GameLevel.tutorialInt = 5;
 
 			foreach (Friendship f in friendsList)
 				f.Other.NotifyFriendWasKilled();
