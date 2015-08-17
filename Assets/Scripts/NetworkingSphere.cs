@@ -56,13 +56,6 @@ public class NetworkingSphere : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-	void OnGUI()
-    {
-		int time = manager.GameLevel.DayTime;
-		GUI.Button(new Rect(50, 50, 100, 40), Utils.GetTimeString(time));
-		GUI.Button(new Rect(160, 50, 100, 40), manager.GameLevel.Awareness + "");
-	}
-
     void Update()
     {
         if (_timeSinceLastClick < 2f)
@@ -167,7 +160,7 @@ public class NetworkingSphere : MonoBehaviour
 
         if (!_isRotatingTowardsNode || node != _selectedNode)
         {
-            if ((lvl.tutorialInt > 1) || (lvl.tutorialInt > 1))
+            if ((lvl.tutorialInt == -1) || (lvl.tutorialInt > 1) || (lvl.tutorialInt > 1))
                 FocusOnNode(node);
         }
         
