@@ -104,11 +104,15 @@ namespace DeathBook.Model
 
 		public bool Kill()
 		{
-			if (Online)
-				return false;
+            if (Online || (LevelManager.Instance.GameLevel.tutorialInt < 4))
+			    return false;
 
 			//Debug.Log("Person " + id + " died!");
 			alive = false;
+
+            if (LevelManager.Instance.GameLevel.tutorialInt == 4)
+                LevelManager.Instance.GameLevel.allowNext = true;
+
 			foreach (Friendship f in friendsList)
 				f.Other.NotifyFriendWasKilled();
 			NotifyObservers();

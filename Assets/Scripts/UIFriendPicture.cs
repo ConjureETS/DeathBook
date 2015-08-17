@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class UIFriendPicture : MonoBehaviour
 {
     private Person _model;
+    private Level lvl;
 
     public Person Model
     {
@@ -23,11 +24,14 @@ public class UIFriendPicture : MonoBehaviour
 
     void Awake()
     {
+        lvl = LevelManager.Instance.GameLevel;
         _picture = GetComponent<Image>();
     }
 
     public void OnClick()
     {
+        if (lvl.tutorialInt == 3)
+            lvl.allowNext = true;
         _model.SelectNode();
         _model.SelectNode();
     }
