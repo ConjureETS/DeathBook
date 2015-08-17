@@ -46,8 +46,8 @@ namespace DeathBook.Model
 			}
 		}
 
-		private static Level level;
-		private static Level GameLevel
+		private Level level;
+		private Level GameLevel
 		{
 			get
 			{

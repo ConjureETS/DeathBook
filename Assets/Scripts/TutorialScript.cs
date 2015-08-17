@@ -15,6 +15,7 @@ public class TutorialScript : MonoBehaviour {
     {
         lvl = LevelManager.Instance.GameLevel;
         lvl.tutorialInt = 0;
+		Time.timeScale = 0;
     }
 
     void Update()
@@ -23,7 +24,6 @@ public class TutorialScript : MonoBehaviour {
 
         if (lvl.tutorialInt == 0)
         {
-            Time.timeScale = 0;
             lvl.allowNext = true;
             tutorialText.text = "The Slaugthr servers are full!\nMark Zuckerberg hired you, Death, to kill off a few of his annoying users.\n\nCareful, or you might scare the rest away from Mark's website...";
         }
@@ -53,7 +53,6 @@ public class TutorialScript : MonoBehaviour {
             tutorialText.text = "Finally, notice the big \"Global Awareness\" bar at the bottom right corner of the screen. When it reaches 100%, it means you have been noticed and you lose!";
             tutorialText.text += "\n\nHit next to start playing.";
             lvl.allowNext = true;
-            Time.timeScale = 0f;
         }
         else
         {
@@ -65,18 +64,26 @@ public class TutorialScript : MonoBehaviour {
 
     public void btnClick()
     {
-        if (lvl.tutorialInt == 0)
-        {
-            Time.timeScale = 1;
-        }
+		if (lvl.tutorialInt == 5)
+		{
+			Time.timeScale = 0f;
+		}
 
         if (lvl.tutorialInt == 6)
         {
+			Time.timeScale = 1;
+			lvl.tutorialInt = -1;
             Application.LoadLevel("Gameplay");
-            Time.timeScale = 1;
+			return;
         }
 
         lvl.tutorialInt++;
+
+		if (lvl.tutorialInt == 1)
+		{
+			Time.timeScale = 1;
+		}
+
         lvl.allowNext = false;
     }
 	
