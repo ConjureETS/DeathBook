@@ -104,7 +104,7 @@ namespace DeathBook.Model
 
 		public bool Kill()
 		{
-            if (Online || ((LevelManager.Instance.GameLevel.tutorialInt < 4) && (LevelManager.Instance.GameLevel.tutorialInt >= 0)))
+            if (Online || (LevelManager.Instance.GameLevel.tutorialInt > -1 && LevelManager.Instance.GameLevel.tutorialInt < 4))
 			    return false;
 
 			//Debug.Log("Person " + id + " died!");
@@ -118,6 +118,11 @@ namespace DeathBook.Model
 			NotifyObservers();
 
 			LevelManager.Instance.GameLevel.RegisterKill(this);
+
+            if (LevelManager.Instance.GameLevel.tutorialInt == 5 && LevelManager.Instance.GameLevel.NumDead == 3)
+            {
+                LevelManager.Instance.GameLevel.tutorialInt = 6;
+            }
 
 			return true;
 		}
