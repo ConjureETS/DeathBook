@@ -25,7 +25,7 @@ public class TutorialScript : MonoBehaviour {
         if (lvl.tutorialInt == 0)
         {
             lvl.allowNext = true;
-            tutorialText.text = "The Slaugthr servers are full!\nMark Zuckerberg hired you, Death, to kill off a few of his annoying users.\n\nCareful, or you might scare the rest away from Mark's website...";
+            tutorialText.text = "The Slaugthr servers are full!\nMark Z. hired you, Death, to kill off a few of his annoying users.\n\nCareful, or you might scare the rest away from Mark's website...";
         }
         else if (lvl.tutorialInt == 1)
         {
